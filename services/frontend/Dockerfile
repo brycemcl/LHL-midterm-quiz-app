@@ -1,8 +1,7 @@
 FROM node:14
-RUN apt-get update && apt-get -y install postgresql postgresql-contrib 
 ENV NODE_ENV=production
 WORKDIR /usr/src/app
 COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
 RUN npm install --production --silent && mv node_modules ../
 COPY . .
-CMD ["./project.sh"]
+CMD ["npm", "start"]
