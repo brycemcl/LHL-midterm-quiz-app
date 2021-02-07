@@ -5,50 +5,37 @@ const getQuizzes = function() {
 };
 
 const getQuizzesById = function(id) {
-  for (const quiz of db) {
-    if (db[quiz].id === id) {
-      return db[quiz];
-    }
+  if (db[id]) {
+    return db[id];
   }
 };
 
 const postQuizzes = function(quiz) {
-  const newId = '5';
-  quiz.id = newId;
-
-  let newQuiz = {};
-  newQuiz[newId] = quiz;
-
-  db.push(newQuiz);
+  const newId = Math.floor(Math.random() * 100);
+  quiz.id = newId; // add new id into quiz
+  db[newId] = quiz;
   return db;
-}
+};
 
-const editQuiz = function(quiz) {
+const editQuiz = function(id, quiz) {
   // assuming that the quiz has an id
-  if (db[quiz.id]) {
-    db[quiz.id] = quiz;
-    return db[quiz.id];
+  if (db[id]) {
+    db[id] = quiz;
+    return db;
   }
 };
 
-// console.log('call getQuizzes', getQuizzes());
-// console.log('call getQuizzesById', getQuizzesById(1));
-const newQuiz = {
-  title: "quiz5",
-  version: 1,
-  question: "what's super?"
+const deleteQuiz = function(id) {
+  if (db[id]) {
+    delete db[id];
+    return db;
+  }
 };
-
-const quizEditted = {
-  id: "2",
-  title: "quiz2",
-  question: "what's the dinner tonight?"
-};
-
-// console.log(postQuizzes(newQuiz));
-// console.log('post a new quiz', postQuizzes(newQuiz));
 
 module.exports = {
   getQuizzes,
-  getQuizzesById
-}
+  getQuizzesById,
+  postQuizzes,
+  editQuiz,
+  deleteQuiz
+};

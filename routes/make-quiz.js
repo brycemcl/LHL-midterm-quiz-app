@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getQuizzes, postQuizzes, getQuizzesById } = require('./db/queries/quiz-queries');
+const { getQuizzes, postQuizzes, editQuiz, deleteQuiz, getQuizzesById } = require('../db/queries/quiz-queries');
 const bodyParser = require('body-parser');
 
 // use and set middleware
@@ -9,41 +9,34 @@ router.use(bodyParser.urlencoded({ extended: true }));
 
 // All the quizzes that the user has made
 router.get('/', (req, res) => {
-  getQuizzes()
-    .then(quizzes => {
-      res.json(quizzes);
-    })
+  const quizzes = getQuizzes();
+  res.json(quizzes);
 });
 
 // A specific quiz that the user has made (questions only)
 router.get('/:id', (req, res) => {
-  getQuizzesById(req.params.id)
-    .then(quiz => {
-      res.json(quiz);
-    })
+  const quiz = getQuizzesById(req.params.id);
+  res.json(quiz);
 });
 
 // Editing a specific quiz
 router.post('/:id', (req, res) => {
-  editQuiz(req.body)
-    .then(quizzes => {
-      res.json(quiz);
-    })
+  const id = req.params.id;
+  const quizzes = editQuiz(id, req.body);
+  res.json(quizzes);
 });
 
 // Adding a new quiz
 router.post('/', (req, res) => {
   // receiving a new quiz to be deleted
-  postQuizzes(req.body)
-    .then(quizzes => {
-      res.json(quizzes);
-    })
+  const quizzes = postQuizzes(req.body);
+  res.json(quizzes);
 });
 
 // Deleting a quiz that the author made
-router.delete('/:id', (req, res) => {
-  deleteQuiz(req.body.id)
-    .then(res => res.send('quiz deleted'))
+router.post('/:id/delete', (req, res) => {
+  const quizzes = deleteQuiz(req.params.id);
+  res.json(quizzes);
 });
 
 module.exports = router;
