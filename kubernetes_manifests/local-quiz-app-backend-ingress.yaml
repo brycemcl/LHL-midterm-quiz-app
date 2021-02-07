@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: "quiz-app"
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: local-quiz-app-backend
+  namespace: "quiz-app"
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /api/
+            pathType: Prefix
+            backend:
+              service:
+                name: quiz-app-backend
+                port:
+                  number: 8080

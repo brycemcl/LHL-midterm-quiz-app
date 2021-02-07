@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    keel.sh/policy: all
+    keel.sh/trigger: poll
+  labels:
+    service: quiz-app-frontend
+  name: quiz-app-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: quiz-app-frontend
+  template:
+    metadata:
+      labels:
+        service: quiz-app-frontend
+    spec:
+      containers:
+        - env:
+            - name: NODE_ENV
+              value: production
+          image: brycemclachlan/quiz-app-frontend
+          name: quiz-app-frontend
+          ports:
+            - containerPort: 8080
+      restartPolicy: Always

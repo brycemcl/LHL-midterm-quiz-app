@@ -1,17 +1,18 @@
-// load .env data into process.env
-require('dotenv').config();
+try {
+  // load .env data into process.env
+  require('dotenv').config();
+} catch (e) { }
 
 // Web server config
-const PORT       = process.env.PORT || 8080;
-const ENV        = process.env.ENV || "development";
-const express    = require("express");
+const PORT = process.env.NODE_PORT || 8080;
+const ENV = process.env.NODE_ENV || "development";
+const express = require("express");
 const bodyParser = require("body-parser");
-const sass       = require("node-sass-middleware");
-const app        = express();
-const morgan     = require('morgan');
+const app = express();
+const morgan = require('morgan');
 
 // PG database client/connection setup
-const { Pool } = require('pg');
+const { Pool } = require('pg').native;
 const dbParams = require('./lib/db.js');
 const { getQuizzes } = require('./db/queries/quiz-queries');
 const db = new Pool(dbParams);
@@ -22,15 +23,7 @@ const db = new Pool(dbParams);
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan('dev'));
 
-app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use("/styles", sass({
-  src: __dirname + "/styles",
-  dest: __dirname + "/public/styles",
-  debug: true,
-  outputStyle: 'expanded'
-}));
-app.use(express.static("public"));
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
@@ -44,7 +37,7 @@ app.use(express.static("public"));
 // Note: mount other resources here, using the same pattern above
 
 const quizRoutes = require("./routes/make-quiz");
-app.use("/quizzes", quizRoutes);
+app.use("/api/quizzes", quizRoutes);
 
 // Home page
 // Warning: avoid creating more routes in this file!
@@ -56,5 +49,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
+  console.log(`Backend listening on port ${PORT}`);
 });

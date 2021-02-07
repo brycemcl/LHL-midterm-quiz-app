@@ -1,0 +1,37 @@
+version: "3.4"
+
+services:
+  quiz-app-backend:
+    image: brycemclachlan/quiz-app-backend
+    build:
+      context: ./backend/
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: production
+      NODE_PORT: 8080
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+    env_file:
+      - secret.env
+    ports:
+      - 8080:8080
+  quiz-app-frontend:
+    image: brycemclachlan/quiz-app-frontend
+    build:
+      context: ./frontend/
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: production
+    ports:
+      - 8081:8080
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    env_file:
+      - secret.env
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data
+volumes:
+  postgres_volume:
