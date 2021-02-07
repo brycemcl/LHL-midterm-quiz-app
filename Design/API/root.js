@@ -1,32 +1,21 @@
 const express = require('express');
 const router = express.Router();
+const { getQuizzes, getQuizzesById } = require('./db/queries/quiz-queries');
 
 // Get all the public quizzes
 router.get('/', (req, res) => {
-  res.json({
-    userId: 1,
-    quizList: [
-      {
-        title: 'quiz 1'
-      },
-      {
-        title: 'quiz 2'
-      },
-      {
-        title: 'quiz 3'
-      }
-    ]
-  });
+  getQuizzes()
+    .then(quizzes => {
+      res.json(quizzes);
+    });
 });
 
 // Getting a specific quiz (stay?)
 router.get('/:id', (req, res) => {
-  res.json({
-    quiz: {
-      title: 'quiz 1'
-    }
-  });
+  getQuizzesById(req.params.id)
+    .then(quiz => {
+      res.json(quiz);
+    });
 });
-
 
 module.exports = router;
