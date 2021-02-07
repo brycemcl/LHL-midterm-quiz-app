@@ -1,0 +1,20 @@
+digraph {
+    graph [nodesep="0.5", ranksep="2"];
+    rankdir=LR;
+"Mock API"->"ERD"
+"Mock API"->"Frontend(view) SPA @ /"
+"Mock API"->"Frontend(view) SPA @ /view"
+"Mock API"->"Frontend(view) SPA @ /take"
+"Mock API"->"Frontend(view) SPA @ /make"
+"Frontend(view) SPA @ /view"->"Frontend(edit) SPA @ /view"
+"Frontend(view) SPA @ /take"->"Frontend(edit) SPA @ /take"
+"Frontend(view) SPA @ /make"->"Frontend(edit) SPA @ /make"
+"ERD"->"Database schema"
+"Database schema"->"Database queries"
+"Mock API"->"Backend routes"
+"Backend routes"->"Backend database helper functions(outline)"
+"Mock API"->"Backend database helper functions(outline)"
+"Backend database helper functions(outline)"->"Database queries"
+"Database queries"->"Backend database helper functions(sql)"
+
+}
