@@ -37,7 +37,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Note: mount other resources here, using the same pattern above
 
 const quizRoutes = require("./routes/make-quiz");
-app.use("/quizzes", quizRoutes);
+app.use("/api/quizzes", quizRoutes);
 
 // Home page
 // Warning: avoid creating more routes in this file!
