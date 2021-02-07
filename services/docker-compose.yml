@@ -2,7 +2,7 @@ version: "3.4"
 
 services:
   quiz-app-backend:
-    image: quiz-app-backend
+    image: brycemclachlan/quiz-app-backend
     build:
       context: ./backend/
       dockerfile: ./Dockerfile
@@ -16,7 +16,7 @@ services:
     ports:
       - 8080:8080
   quiz-app-frontend:
-    image: quiz-app-frontend
+    image: brycemclachlan/quiz-app-frontend
     build:
       context: ./frontend/
       dockerfile: ./Dockerfile

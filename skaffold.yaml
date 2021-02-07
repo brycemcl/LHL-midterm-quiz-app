@@ -1,0 +1,21 @@
+apiVersion: skaffold/v2beta11
+kind: Config
+metadata:
+  name: lhl-midterm-quiz-app
+build:
+  artifacts:
+    - image: brycemclachlan/quiz-app-backend
+      context: services/backend
+      docker:
+        dockerfile: Dockerfile
+    - image: brycemclachlan/quiz-app-frontend
+      context: services/frontend
+      docker:
+        dockerfile: Dockerfile
+deploy:
+  kustomize:
+    paths:
+      - kubernetes_manifests
+  kubectl:
+    manifests:
+      - kubernetes_manifests/local-*

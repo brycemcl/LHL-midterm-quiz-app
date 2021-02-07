@@ -38,7 +38,7 @@ spec:
           ports:
             - containerPort: 5432
           volumeMounts:
-            - mountPath: /var/lib/postgresql/
+            - mountPath: /var/lib/postgresql/data
               name: postgres-volume
       restartPolicy: Always
       volumes:
