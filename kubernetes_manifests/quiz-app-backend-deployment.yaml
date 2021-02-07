@@ -1,6 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    keel.sh/policy: all
+    keel.sh/trigger: poll
   labels:
     service: quiz-app-backend
   name: quiz-app-backend
