@@ -1,14 +1,7 @@
 digraph {
     graph [nodesep="0.5", ranksep="2"];
     node [shape=plain]
-// answers [label=<
-// <table border="0" cellborder="1" cellspacing="0">
-//   <tr><td colspan="3"><u><i>tests</i></u></td></tr>
-//   <tr><td><i>Key</i></td><td><i>Name</i></td><td><i>Data Type</i></td></tr>
-//   <tr><td port="id">PK</td><td port="id">id</td><td port="id">SERIAL PRIMARY KEY</td></tr>
-//   <tr><td port="users_id">FK</td><td port="users_id">users_id</td><td port="users_id">SERIAL PRIMARY KEY</td></tr>
-// </table>
-// >];
+
 users [label=<
 <table border="0" cellborder="1" cellspacing="0">
   <tr><td colspan="3"><u><i>users</i></u></td></tr>
@@ -18,6 +11,55 @@ users [label=<
 </table>
 >];
 
+//one user may have many quizzes taken/maken
+users:id->quizzes:user_id [arrowtail=nonetee arrowhead=crow dir=both]
+quizzes [label=<
+<table border="0" cellborder="1" cellspacing="0">
+  <tr><td colspan="3"><u><i>quizzes</i></u></td></tr>
+  <tr><td><i>Key</i></td><td><i>Name</i></td><td><i>Data Type</i></td></tr>
+  <tr><td port="id">PK</td><td port="id">id</td><td port="id">SERIAL PRIMARY KEY</td></tr>
+  <tr><td port="user_id">FK</td><td port="user_id">user_id</td><td port="user_id">int</td></tr>
+  <tr><td port="title"></td><td port="title">title</td><td port="title">VARCHAR(255)</td></tr>
+  <tr><td port="version"></td><td port="version">version</td><td port="version">int</td></tr>
+  <tr><td port="isCurrent"></td><td port="isCurrent">isCurrent</td><td port="isCurrent">BOOLEAN NOT NULL DEFAULT: true</td></tr>
+</table>
+>];
+
+//one quiz may have many questions
+quizzes:id->questions:quiz_id [arrowtail=nonetee arrowhead=crow dir=both]
+questions [label=<
+<table border="0" cellborder="1" cellspacing="0">
+  <tr><td colspan="3"><u><i>questions</i></u></td></tr>
+  <tr><td><i>Key</i></td><td><i>Name</i></td><td><i>Data Type</i></td></tr>
+  <tr><td port="id">PK</td><td port="id">id</td><td port="id">SERIAL PRIMARY KEY</td></tr>
+  <tr><td port="quiz_id">FK</td><td port="quiz_id">quiz_id</td><td port="quiz_id">INT</td></tr>
+  <tr><td port="question"></td><td port="question">question</td><td port="question">TEXT</td></tr>
+  //optional sub text ex. please select all answer that fit best, likely small type html
+  <tr><td port="sub_text"></td><td port="sub_text">sub_text</td><td port="sub_text">TEXT</td></tr>
+  //optional picture that goes with question
+  <tr><td port="picture"></td><td port="picture">picture</td><td port="picture">URL</td></tr>
+</table>
+>];
+
+//one question may have many options
+questions:id->options:question_id[arrowtail=nonetee arrowhead=crow dir=both]
+options [label=<
+<table border="0" cellborder="1" cellspacing="0">
+  <tr><td colspan="3"><u><i>options</i></u></td></tr>
+  <tr><td><i>Key</i></td><td><i>Name</i></td><td><i>Data Type</i></td></tr>
+  <tr><td port="id">PK</td><td port="id">id</td><td port="id">SERIAL PRIMARY KEY</td></tr>
+  <tr><td port="question_id">FK</td><td port="question_id">question_id</td><td port="question_id">INT</td></tr>
+  <tr><td port="is_picture_option"></td><td port="is_picture_option">is_picture_option</td><td port="is_picture_option">BOOLEAN</td></tr>
+  //picture/text that pairs with specific option
+  //if is_picture_option ? picture can't be null : text can't be null...
+  <tr><td port="picture_answer"></td><td port="picture_answer">picture</td><td port="picture_answer">URL</td></tr>
+  <tr><td port="text_answer"></td><td port="text_answer">text_answer</td><td port="text_answer">TEXT</td></tr>
+  //sets option as the right answer
+  <tr><td port="is_answer"></td><td port="is_answer">is_answer</td><td port="is_answer">BOOLEAN NOT NULL DEFAULT: true</td></tr>
+</table>
+>];
+
+//user answers
 answers [label=<
 <table border="0" cellborder="1" cellspacing="0">
   <tr><td colspan="3"><u><i>answers</i></u></td></tr>
@@ -29,51 +71,23 @@ answers [label=<
 </table>
 >];
 
-questions [label=<
+//link many answers to many options (many to many)
+answers:id->options_answers:answer_id [arrowtail=nonetee arrowhead=crow dir=both]
+options:id->options_answers:option_id [arrowtail=nonetee arrowhead=crow dir=both]
+options_answers [label=<
 <table border="0" cellborder="1" cellspacing="0">
-  <tr><td colspan="3"><u><i>questions</i></u></td></tr>
+  <tr><td colspan="3"><u><i>options_answers</i></u></td></tr>
   <tr><td><i>Key</i></td><td><i>Name</i></td><td><i>Data Type</i></td></tr>
   <tr><td port="id">PK</td><td port="id">id</td><td port="id">SERIAL PRIMARY KEY</td></tr>
-  <tr><td port="quiz_id">FK</td><td port="quiz_id">quiz_id</td><td port="quiz_id">INT</td></tr>
-  <tr><td port="question"></td><td port="question">question</td><td port="question">TEXT</td></tr>
-  <tr><td port="options"></td><td port="options">options</td><td port="options">INT</td></tr>
-  <tr><td port="picture"></td><td port="picture">picture</td><td port="picture">URL</td></tr>
+ //options_answers brings answer_id user's answer together with option_id so they can be compared
+  <tr><td port="answer_id">FK</td><td port="answer_id">answer_id</td><td port="answer_id">INT</td></tr>
+  <tr><td port="option_id">FK</td><td port="option_id">option_id</td><td port="option_id">INT</td></tr>
+  //count of this bool determine score
+  <tr><td port="matches_is_answer"></td><td port="matches_is_answer">matches_is_answer</td><td port="matches_is_answer">BOOLEAN NOT NULL default: false</td></tr>
 </table>
 >];
 
-quizzes [label=<
-<table border="0" cellborder="1" cellspacing="0">
-  <tr><td colspan="3"><u><i>quizzes</i></u></td></tr>
-  <tr><td><i>Key</i></td><td><i>Name</i></td><td><i>Data Type</i></td></tr>
-  <tr><td port="id">PK</td><td port="id">id</td><td port="id">SERIAL PRIMARY KEY</td></tr>
-  <tr><td port="user_id">FK</td><td port="user_id">user_id</td><td port="user_id">int</td></tr>
-  <tr><td port="title"></td><td port="title">title</td><td port="title">VARCHAR(255)</td></tr>
-  <tr><td port="version"></td><td port="version">version</td><td port="version">int</td></tr>
-  <tr><td port="isCurrent"></td><td port="isCurrent">isCurrent</td><td port="isCurrent">boolean DEFAULT: true</td></tr>
-</table>
->];
-
-options [label=<
-<table border="0" cellborder="1" cellspacing="0">
-  <tr><td colspan="3"><u><i>options</i></u></td></tr>
-  <tr><td><i>Key</i></td><td><i>Name</i></td><td><i>Data Type</i></td></tr>
-  <tr><td port="id">PK</td><td port="id">id</td><td port="id">SERIAL PRIMARY KEY</td></tr>
-  <tr><td port="question_id">FK</td><td port="question_id">question_id</td><td port="question_id">INT</td></tr>
-  <tr><td port="quiz_id">FK</td><td port="quiz_id">quiz_id</td><td port="quiz_id">INT</td></tr>
-  <tr><td port="is_picture_option"></td><td port="is_picture_option">is_picture_option</td><td port="is_picture_option">BOOLEAN</td></tr>
-  
-</table>
->];
-
-users:id->quizzes:user_id [arrowtail=nonetee arrowhead=crow dir=both]
-questions:quiz_id->quizzes:id [arrowtail=nonetee arrowhead=crow dir=both]
 quizzes:id->answers:quiz_id [arrowtail=nonetee arrowhead=crow dir=both]
 questions:id->answers:question_id [arrowtail=nonetee arrowhead=crow dir=both]
 users:id->answers:user_id [arrowtail=nonetee arrowhead=crow dir=both]
-options:id->answers:user_id [arrowtail=nonetee arrowhead=crow dir=both]
-// quizzes:id->answers: quiz_id [arrowtail=nonetee arrowhead=crow dir=both]
-// users:id->tests:users_id [arrowtail=nonetee arrowhead=crow dir=both]
-
-//tests:id->tests:users_id [arrowtail=nonetee arrowhead=crow dir=both]
-
 }
