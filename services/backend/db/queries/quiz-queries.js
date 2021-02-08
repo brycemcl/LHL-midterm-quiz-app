@@ -1,10 +1,35 @@
 const db = require('../quiz.json');
+const { Pool } = require('pg');
+const pool = new Pool({
+  user: 'vagrant',
+  password: '123',
+  host: 'localhost',
+  database: 'quiz_entities'
+});
+
+pool.connect();
 
 const getQuizzes = function() {
-  return db;
+  return pool.query(`
+  SELECT * FROM quizzes
+  `)
+  .then(res => res.rows)
+  .catch(err => err.stack)
 };
 
+const getUserWithEmail = function(email) {
+  return pool.query(`
+  SELECT * FROM users
+  WHERE email = $1
+  `, [email])
+    .then(res => res.rows.length ? res.rows[0] : null)
+    .catch(err => err.stack);
+};
+exports.getUserWithEmail = getUserWithEmail;
+
 const getQuizzesById = function(id) {
+  `SELECT * FROM quizzes
+  WHERE users_id = '${id}'`
   if (db[id]) {
     return db[id];
   }
@@ -26,6 +51,7 @@ const editQuiz = function(id, quiz) {
 };
 
 const deleteQuiz = function(id) {
+  SELECT * FROM
   if (db[id]) {
     delete db[id];
     return db;
