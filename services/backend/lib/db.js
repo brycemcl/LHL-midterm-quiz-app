@@ -1,4 +1,10 @@
-let dbParams = {};
+const dbParams = new Pool({
+  user: 'vagrant',
+  password: '123',
+  host: 'localhost',
+  database: 'quiz_entities'
+});
+
 if (process.env.DATABASE_URL) {
   dbParams.connectionString = process.env.DATABASE_URL;
 } else {
