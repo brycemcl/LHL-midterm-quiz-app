@@ -9,5 +9,4 @@ FROM nginx
 COPY --from=build /usr/src/app/dist/ /usr/share/nginx/html
 RUN chmod -R 555 /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf
-# RUN ls
-# RUN cat /etc/nginx/nginx.conf
+
