@@ -74,30 +74,38 @@ const editQuiz = function(changesObject) {
   const changes = [changesObject.title, changesObject.id];
   return db.query(`
   UPDATE quizzes
-  SET title = ${$1}, version = (version + 0.1)
-  WHERE id = ${$2}
+  SET title = $1, version = (version + 0.1)
+  WHERE id = $2
   RETURNING *;
   `, changes)
   .then(res => res.rows)
   .catch(err => err.stack)
 };
 
-//{id, quiz id, question: TEXT, sub_text, question_pic_url}
+//{id: INT, quiz_id: INT, question: TEXT, sub_text: question, question_pic_url: VARCHAR(255)}
 const editQuestion = function(changesObject) {
-  const keys = [];
-  const changes = [];
-  for (key in changesObject) {
-    changes.push('changesObject.' + key);
-    keys.push(key);
-  }
+  const keys = ['question', 'sub_text', 'question_pic_url', 'id'];
+  const vals = keys.map(key => changesObject[key]); //undefined if not there
   return db.query(`
+  with version as (
+    UPDATE quizzes
+    SET version = (version + 0.1)
+    WHERE id IN (SELECT quiz_id FROM questions WHERE id = $4)
+  )
   UPDATE questions
-  SET ${keys.forEach(k => k)} = ${}
-  `)
+  SET question = coalesce($1, question),
+  sub_text = coalesce($2, sub_text),
+  question_pic_url = coalesce($3, question_pic_url)
+  WHERE id = $4
+  RETURNING *;
+  `, vals)
+  .then(res => res.rows[0]) //catch in function where routes are
 };
 
+//{id: INT, question_id, pic_answer_url, text_answer, is_correct, answer_id}
 const editOptions = function() {
-
+  const keys = [ 'id'];
+  const vals = keys.map(key => changesObject[key]); //undefined if not there
 };
 
 //{id, user_id, question_id, quiz_id, selected_option_id}
