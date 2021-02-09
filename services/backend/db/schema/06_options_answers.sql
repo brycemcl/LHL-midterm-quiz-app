@@ -1,7 +1,7 @@
-DROP TABLE IF EXISTS options_answers CASCADE;
-CREATE TABLE options_answers (
-  id SERIAL PRIMARY KEY NOT NULL,
-  answer_id INT NOT NULL REFERENCES answers(id) ON DELETE CASCADE,
-  option_id INT NOT NULL REFERENCES options(id) ON DELETE CASCADE,
-  matches_is_answer BOOLEAN NOT NULL DEFAULT FALSE
-);
+-- DROP TABLE IF EXISTS options_answers CASCADE;
+-- CREATE TABLE options_answers (
+--   id SERIAL PRIMARY KEY NOT NULL,
+--   answer_id INT NOT NULL REFERENCES answers(id) ON DELETE CASCADE,
+--   option_id INT NOT NULL REFERENCES options(id) ON DELETE CASCADE,
+--   matches_is_answer BOOLEAN NOT NULL DEFAULT FALSE
+-- );
