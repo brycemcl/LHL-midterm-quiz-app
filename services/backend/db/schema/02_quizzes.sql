@@ -4,5 +4,7 @@ CREATE TABLE quizzes (
   user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   title VARCHAR(255),
   version INT NOT NULL,
-  is_current BOOLEAN NOT NULL DEFAULT TRUE
+  is_current BOOLEAN NOT NULL DEFAULT TRUE,
+  is_public BOOLEAN NOT NULL DEFAULT TRUE,
+  created_at TIMESTAMP DEFAULT Now()
 );
