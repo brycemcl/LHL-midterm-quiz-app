@@ -87,7 +87,7 @@ const editQuestion = function(changesObject) {
   const keys = ['question', 'sub_text', 'question_pic_url', 'id'];
   const vals = keys.map(key => changesObject[key]); //undefined if not there
   return db.query(`
-  with version as (
+  with versionUpdate as (
     UPDATE quizzes
     SET version = (version + 0.1)
     WHERE id IN (SELECT quiz_id FROM questions WHERE id = $4)
@@ -103,21 +103,42 @@ const editQuestion = function(changesObject) {
 };
 
 //{id: INT, question_id, pic_answer_url, text_answer, is_correct, answer_id}
-const editOptions = function() {
-  const keys = [ 'id'];
+const editOptions = function(changesObject) {
+  const keys = ['pic_answer_url', 'text_answer', 'is_correct', 'answer_id', 'id', 'question_id'];
   const vals = keys.map(key => changesObject[key]); //undefined if not there
+  return db.query(`
+  with versionUpdate as (
+    UPDATE quizzes
+    SET version = (version + 0.1)
+    WHERE id IN (SELECT quiz_id FROM questions WHERE id = $6)
+  )
+  UPDATE options
+  SET pic_answer_url = coalesce($1, pic_answer_url),
+  text_answer = coalesce($2, text_answer),
+  is_correct = coalesce($3, is_correct)
+  WHERE id = $4
+  RETURNING *;
+  `, vals)
+  .then(res => res.rows[0]) //catch in function where routes are
 };
 
-//{id, user_id, question_id, quiz_id, selected_option_id}
-const editAnswers = function() {
+//needs the answer thats being changed and new option_id
+const editAnswers = function(changesObject, option_id) {
+  const keys = ['id', 'user_id', 'question_id', 'quiz_id'];
+  const vals = keys.map(key => changesObject[key]); //undefined if not there
+  //delete this answer and make new answer and change answer_id under the option selected
   return db.query(`
-  UPDATE answers
-  SELECT answers.quiz_id, quizzes.*
-  FROM answers
-  JOIN quizzes ON quiz_id = quizzes.id
-  WHERE answers.user_id = ${id}
-  SET ;
-  `)
+  with optionRemove as (
+    UPDATE options
+    SET answer_id = null
+    WHERE answer_id = $1
+  )
+  UPDATE options
+  SET answer_id = $1
+  WHERE id = ${option_id}
+  RETURNING *;
+  `, vals)
+  .then(res => res.rows[0])
 }
 
 //makes quiz no longer current so it can be hidden
