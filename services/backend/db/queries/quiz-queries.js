@@ -42,57 +42,58 @@ const getQuizzesByIdTaken = function(id) {
   .catch(err => err.stack)
 };
 
-const addUser = function() {
-  const userId = Math.floor(Math.random() * 1000);
-  const idList = `
-  SELECT id
-  FROM users;
-  `;
-  if (userId === idList)
-
+const addUser = function(user) {
   const userVals = [user.name];
   return pool.query(`
   INSERT INTO users (name)
-  VALUES ($1)
-  RETURNING *;
+  VALUES ($1);
   `, userVals)
     .then(res => res.rows[0])
     .catch(err => err.stack);
 };
 
-
 //paraminput = {id, user_id: integer, title: string, version: interger, is_current: bool}
 const postQuizzes = function(quiz) {
-  const quiz_details = [quiz.user_id, quiz.title, quiz.version, quiz.is_current]
-  const newId = Math.floor(Math.random() * 100);
-  quiz.id = newId; // add new id into quiz
-  return db.query(`
-  INSERT INTO quizzes (id, user_id, title, version, is_current)
-  VALUES (${quiz.id}, $1, $2, $3, $4)
-  RETURNING *;
-  `, quiz_details)
-  .then(res => res.rows[0])
-  .catch(err => err.stack)
+  //if the user_id exists then add quiz
+  if (quiz.user_id) {
+    const quiz_details = [quiz.user_id, quiz.title, quiz.version, quiz.is_current]
+    const newId = Math.floor(Math.random() * 100);
+    quiz.id = newId; // add new id into quiz
+    return db.query(`
+    INSERT INTO quizzes (id, user_id, title, version, is_current)
+    VALUES (${quiz.id}, $1, $2, $3, $4)
+    RETURNING *;
+    `, quiz_details)
+    .then(res => res.rows[0])
+    .catch(err => err.stack)
+  }
 };
 
-// const postAnswers...
-
 //{id, user_id: integer, title: string, version: interger, is_current: bool}
-const editQuiz = function() {
+const editQuiz = function(changesObject) {
+  const changes = [changesObject.title, changesObject.id];
   return db.query(`
   UPDATE quizzes
-  SET title
-  WHERE id = quiz_id
-  `)
+  SET title = ${$1}, version = (version + 0.1)
+  WHERE id = ${$2}
+  RETURNING *;
+  `, changes)
   .then(res => res.rows)
   .catch(err => err.stack)
 };
 
-//{id, user_id: integer, title: string, version: interger, is_current: bool}
-const editQuestion = function() {
-  return db.query
-
-
+//{id, quiz id, question: TEXT, sub_text, question_pic_url}
+const editQuestion = function(changesObject) {
+  const keys = [];
+  const changes = [];
+  for (key in changesObject) {
+    changes.push('changesObject.' + key);
+    keys.push(key);
+  }
+  return db.query(`
+  UPDATE questions
+  SET ${keys.forEach(k => k)} = ${}
+  `)
 };
 
 const editOptions = function() {
@@ -130,6 +131,9 @@ module.exports = {
   addUser,
   postQuizzes,
   editQuiz,
+  editQuestion,
+  editOptions,
+  editAnswers,
   deleteQuiz
 };
 
