@@ -1,5 +1,5 @@
+import jQuery from 'jquery'; const $ = jQuery;
 export default (() => {
-  import jQuery from 'jquery'; const $ = jQuery;
   class CustomElement extends HTMLElement {
     constructor() {
       super();
