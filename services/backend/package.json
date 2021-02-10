@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "local": "nodemon server.js"
   },
   "author": "Lighthouse Labs",
   "license": "ISC",
@@ -16,5 +17,8 @@
     "morgan": "^1.10.0",
     "pg": "^8.5.1",
     "pg-native": "^3.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
   }
 }
