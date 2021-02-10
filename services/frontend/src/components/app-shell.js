@@ -3,13 +3,11 @@ export default (() => {
     constructor() {
       super();
       const htmlTemplate = `
-      <div>
       <div class="flex justify-center min-h-screen">
       <div class="container md:mx-6 my-6">
 <nav-bar>
 </nav-bar>
     <div class="inside-of-shell"></div>
-    </div>
     </div>
     </div>
         `;
