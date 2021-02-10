@@ -7,10 +7,10 @@ const state = {
   page: "home"
 };
 
-setInterval(() => {
-  console.clear();
-  console.log(state);
-}, 5000);
+// setInterval(() => {
+//   console.clear();
+//   console.log(state);
+// }, 5000);
 
 api.getRecentQuizzes = () => {
   $.getJSON('/api/', (response) => {
