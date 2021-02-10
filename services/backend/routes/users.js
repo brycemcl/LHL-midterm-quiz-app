@@ -7,19 +7,16 @@
 
 const express = require('express');
 const router  = express.Router();
+const { addUser } = require('../db/queries/user-queries');
+const bodyParser = require('body-parser');
 
-module.exports = (db) => {
-  router.get("/", (req, res) => {
-    db.query(`SELECT * FROM users;`)
-      .then(data => {
-        const users = data.rows;
-        res.json({ users });
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
-  });
-  return router;
-};
+// use and set middleware
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: true }));
+
+router.post("/", (req, res) => {
+  addUser(req.body)
+    .then(users => res.json(users));
+});
+
+module.exports = router;

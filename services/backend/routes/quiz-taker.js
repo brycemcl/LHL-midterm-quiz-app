@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getQuizzesByIdTaken, getQuizById, editAnswers, takerDeleteQuiz} = require('../db/queries/quiz-queries');
+const { getQuizzesByIdTaken, getQuizById, editAnswers, takerDeleteQuiz, getScores } = require('../db/queries/quiz-queries');
 const bodyParser = require('body-parser');
 
 // use and set middleware
@@ -12,7 +12,6 @@ router.get('/user/:id', (req, res) => {
   const user_id = req.params.id;
   getQuizzesByIdTaken(user_id)
     .then(quizzes => {
-      console.log('these are the quizzes', quizzes);
       res.json(quizzes);
     });
 });
@@ -34,8 +33,8 @@ router.get('/:id', (req, res) => {
 router.post('/:id/answer', (req, res) => {
   const { answer, option } = req.body;
   editAnswers(answer, option)
-    .then(quizzes => {
-      res.json(quizzes);
+    .then(quiz => {
+      res.send('answer updated!');
     });
 });
 
@@ -43,22 +42,22 @@ router.post('/:id/answer', (req, res) => {
 // this will change based on the sql queries
 router.post('/:id/score', (req,res) => {
   const { quiz_id, user_id } = req.body;
-  getScore(quiz_id, user_id)
+  console.log('user_id and quiz_id are', user_id, quiz_id);
+  getScores(user_id, quiz_id)
     .then(score => {
       res.json(score);
-    })
+    });
 });
 
 // Deleting answers from a quiz that the taker has done
 router.post('/:id/delete', (req, res) => {
   const quiz_id = req.params.id;
   const user_id = req.body.user_id;
-  console.log(user_id);
   takerDeleteQuiz(user_id, quiz_id)
     .then(quizzes => {
       console.log(quizzes);
       res.send('quiz deleted');
-    })
+    });
 });
 
 module.exports = router;

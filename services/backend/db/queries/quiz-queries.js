@@ -6,28 +6,25 @@ const getQuizzes = function() {
     SELECT * FROM quizzes
     WHERE is_public = true AND is_current = true;
   `)
-  .then(res => res.rows)
-  .catch(err => err.stack)
+  .then(res => res.rows);
 };
 
 //gets details for specic quiz given the id, someone is about to take quiz
 const getQuizById = function(id) {
   return db.query(`
     SELECT * FROM quizzes
-    WHERE id = ${id}
-  `)
-  .then(res => res.rows)
-  .catch(err => err.stack)
+    WHERE id = $1
+  `, [id])
+  .then(res => res.rows);
 }
 
 //getting all the quizzes a user has created
 const getQuizzesByIdCreated = function(user_id) {
   return db.query(`
     SELECT * FROM quizzes
-    WHERE user_id = ${user_id};
-  `)
-  .then(res => res.rows)
-  .catch(err => err.stack)
+    WHERE user_id = $1;
+  `, [user_id])
+  .then(res => res.rows);
 };
 
 //geting all the quizzes a user has taken
@@ -37,26 +34,24 @@ const getQuizzesByIdTaken = function(user_id) {
     SELECT answers.quiz_id, quizzes.*
     FROM answers
     JOIN quizzes ON quiz_id = quizzes.id
-    WHERE answers.user_id = ${user_id};
-  `)
-  .then(res => res.rows)
-  .catch(err => err.stack)
+    WHERE answers.user_id = $1;
+  `, [user_id])
+  .then(res => res.rows);
 };
 
 // author creating a quiz
 const postQuizzes = function(quiz) {
   //if the user_id exists then add quiz
   if (quiz.user_id) {
-    const quiz_details = [quiz.user_id, quiz.title, quiz.version, quiz.is_current]
     const newId = Math.floor(Math.random() * 100);
     quiz.id = newId; // add new id into quiz
+    const quiz_details = [quiz.id, quiz.user_id, quiz.title, quiz.version, quiz.is_current]
     return db.query(`
       INSERT INTO quizzes (id, user_id, title, version, is_current)
-      VALUES (${quiz.id}, $1, $2, $3, $4)
+      VALUES ($1, $2, $3, $4, $5)
       RETURNING *;
     `, quiz_details)
-    .then(res => res.rows[0])
-    .catch(err => err.stack)
+    .then(res => res.rows[0]);
   }
 };
 
@@ -69,8 +64,7 @@ const editQuiz = function(quiz) {
     WHERE id = $2
     RETURNING *;
   `, changes)
-  .then(res => res.rows)
-  .catch(err => err.stack)
+  .then(res => res.rows);
 };
 
 // author updating a question of their quiz
@@ -90,7 +84,7 @@ const editQuestion = function(question) {
     WHERE id = $4
     RETURNING *;
   `, vals)
-  .then(res => res.rows[0]) //catch in function where routes are
+  .then(res => res.rows[0]); //catch in function where routes are
 };
 
 // author updating the options
@@ -112,21 +106,23 @@ const editOptions = function(options) {
     WHERE id = $4
     RETURNING *;
   `, vals)
-  .then(res => res.rows[0]) //catch in function where routes are
+  .then(res => res.rows[0]); //catch in function where routes are
 };
 
 
 //needs the answer thats being changed and new option_id
 const editAnswers = function(changesObject, option_id) {
-  const keys = ['id', 'user_id', 'question_id', 'quiz_id'];
-  const vals = keys.map(key => changesObject[key]); //undefined if not there
+  const keys = ['id', 'user_id'];
+  let vals = keys.map(key => changesObject[key]); //undefined if not there;
+  vals.push(option_id);
+  // console.log('vals are:', vals);
   //delete this answer and make new answer and change answer_id under the option selected
   return db.query(`
     UPDATE options_answers
-    SET option_id = ${option_id}
+    SET option_id = $3
     WHERE answer_id IN (SELECT answers.id FROM answers WHERE id = $1 AND user_id = $2);
   `, vals)
-  .then(res => res.rows[0])
+  .then(res => res.rows);
 }
 
 
@@ -137,8 +133,7 @@ const deleteQuiz = function(quiz_id) {
     SET is_current = false
     WHERE id = $1;
   `, [quiz_id])
-  .then(res => res.rows)
-  .catch(err => err.stack)
+  .then(res => res.rows);
 };
 
 // deletes all the users answers associated with specifed user and quiz
@@ -156,10 +151,11 @@ const getScores = function(user_id, quiz_id) {
   return db.query(`
     SELECT COUNT(is_correct) FROM options
       WHERE is_correct = true AND options.id IN (SELECT option_id FROM options_answers WHERE answer_id IN (
-        SELECT id FROM answers WHERE user_id = 2 AND quiz_id = 6
+        SELECT id FROM answers WHERE user_id = $1 AND quiz_id = $2
         )
       )
-  `, [user_id, quiz_id]);
+  `, [user_id, quiz_id])
+    .then((res) => res.rows);
 }
 
 module.exports = {

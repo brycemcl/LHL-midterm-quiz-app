@@ -3,11 +3,16 @@ const db = require('../../lib/db');
 // add the user
 const addUser = function(user) {
   const userVals = [user.name];
+  console.log('about to be added and this is', user.name);
   return db.query(`
     INSERT INTO users (name)
-    VALUES ($1);
+    VALUES ($1)
+    RETURNING *;
   `, userVals)
-    .then(res => console.log('User added'));
+    .then(res => {
+      console.log('this is res', res.rows);
+      return res.rows;
+    });
 };
 
 // get a user for displaying

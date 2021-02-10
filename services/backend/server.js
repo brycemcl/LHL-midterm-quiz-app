@@ -32,8 +32,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const quizMakerRoutes = require("./routes/quiz-maker");
 const quizTakerRoutes = require("./routes/quiz-taker");
+const userRoutes = require("./routes/users");
+
 app.use("/api/quiz-maker", quizMakerRoutes);
 app.use("/api/quiz-taker", quizTakerRoutes);
+app.use("/api/user", userRoutes);
 
 // Home page
 // Warning: avoid creating more routes in this file!
