@@ -1,4 +1,4 @@
-import { jQuery } from 'jquery';
+import jQuery as $ from 'jquery';
 
 $.ajax({
   url: '/api/',
