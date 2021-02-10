@@ -11,6 +11,7 @@ export default (() => {
         import('./../state').then(c => c.default(event));
       });
       this.querySelector('div').innerHTML = this.getAttribute('text');
+      this.querySelector('div').innerHTML = this.getAttribute('page');
     }
   }
   window.customElements.define('nav-button', CustomElement);
