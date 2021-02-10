@@ -7,7 +7,7 @@ const $ = jQuery;
 //     format: 'json'
 //   }
 // }).then((r) => { console.log(r); }).catch((e) => { console.log(e); });
-$.getJSON('http://localhost/api/', (r) => {
+$.getJSON('/api/', (r) => {
   console.log(r);
 });
 
