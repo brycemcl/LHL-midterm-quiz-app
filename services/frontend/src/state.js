@@ -1,13 +1,15 @@
 import jQuery from 'jquery';
 const $ = jQuery;
 
-$.ajax({
-  url: '/api/',
-  data: {
-    format: 'json'
-  }
-}).then((r) => { console.log(r); }).catch((e) => { console.log(e); });
-
+// $.ajax({
+//   url: '/api/',
+//   data: {
+//     format: 'json'
+//   }
+// }).then((r) => { console.log(r); }).catch((e) => { console.log(e); });
+$.getJSON('/api/', (r) => {
+  console.log(r);
+});
 
 
 
