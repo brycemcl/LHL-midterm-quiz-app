@@ -31,6 +31,7 @@ const getQuizzesByIdCreated = function(user_id) {
 };
 
 //geting all the quizzes a user has taken
+//paraminput = {id, user_id: integer, title: string, version: interger, is_current: bool}
 const getQuizzesByIdTaken = function(user_id) {
   return db.query(`
     SELECT answers.quiz_id, quizzes.*
@@ -114,24 +115,20 @@ const editOptions = function(options) {
   .then(res => res.rows[0]) //catch in function where routes are
 };
 
-// quiz taker editting their answer (user_id included in the answer)
-const editAnswers = function(answer, option_id) {
+
+//needs the answer thats being changed and new option_id
+const editAnswers = function(changesObject, option_id) {
   const keys = ['id', 'user_id', 'question_id', 'quiz_id'];
-  const vals = keys.map(key => answer[key]); //undefined if not there
+  const vals = keys.map(key => changesObject[key]); //undefined if not there
   //delete this answer and make new answer and change answer_id under the option selected
   return db.query(`
-    with optionRemove as (
-      UPDATE options
-      SET answer_id = null
-      WHERE answer_id = $1
-    )
-    UPDATE options
-    SET answer_id = $1
-    WHERE id = ${option_id}
-    RETURNING *;
+    UPDATE options_answers
+    SET option_id = ${option_id}
+    WHERE answer_id IN (SELECT answers.id FROM answers WHERE id = $1 AND user_id = $2);
   `, vals)
   .then(res => res.rows[0])
 }
+
 
 // author: mark the quiz to be hidden and not accessble to both author and quiz takers
 const deleteQuiz = function(quiz_id) {
@@ -157,12 +154,11 @@ const takerDeleteQuiz = function(user_id, quiz_id) {
 // if more than one option, need to group by answers and then select COUNT(answers)
 const getScores = function(user_id, quiz_id) {
   return db.query(`
-    SELECT COUNT(options)
-    FROM options
-    JOIN answers ON answers.id = answer_id
-    WHERE options.is_correct = TRUE
-    AND answers.user_id = $1
-    AND answers.quiz_id = $2;
+    SELECT COUNT(is_correct) FROM options
+      WHERE is_correct = true AND options.id IN (SELECT option_id FROM options_answers WHERE answer_id IN (
+        SELECT id FROM answers WHERE user_id = 2 AND quiz_id = 6
+        )
+      )
   `, [user_id, quiz_id]);
 }
 
@@ -176,6 +172,7 @@ module.exports = {
   editQuestion,
   editOptions,
   editAnswers,
+  takerDeleteQuiz,
   deleteQuiz,
-  takerDeleteQuiz
+  getScores
 };
