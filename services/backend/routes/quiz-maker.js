@@ -11,7 +11,6 @@ router.use(bodyParser.urlencoded({ extended: true }));
 // params: user_id
 // not working (add another endpoint)
 router.get('/user/:id', (req, res) => {
-  console.log('getting');
   const user_id = req.params.id;
   getQuizzesByIdCreated(user_id)
     .then(quizzes => {
@@ -35,13 +34,10 @@ router.get('/:id', (req, res) => {
 router.post('/quiz', (req, res) => {
   // maybe implement session cookie
   const quiz = req.body;
-  // if (quiz.user_id !== user_id) {
-  //   return res.send('Quiz not found!');
-  // }
   editQuiz(quiz)
     .then(quizzes => {
       res.json(quizzes);
-    })
+    });
 });
 
 router.post('/question', (req, res) => {
@@ -49,7 +45,7 @@ router.post('/question', (req, res) => {
   editQuestion(question)
     .then(quizzes => {
       res.json(quizzes);
-    })
+    });
 });
 
 // this route still needs testing
@@ -58,7 +54,7 @@ router.post('/option', (req, res) => {
   editOptions(option)
     .then(quizzes => {
       res.json(quizzes);
-    })
+    });
 });
 
 // Adding a new quiz
@@ -79,7 +75,7 @@ router.post('/:id/delete', (req, res) => {
   deleteQuiz(quiz_id)
     .then(quizzes => {
       res.send('quiz deleted!');
-    })
+    });
 });
 
 module.exports = router;
