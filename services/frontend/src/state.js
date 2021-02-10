@@ -1,5 +1,7 @@
-import jQuery from 'jquery';
+import * as $ from 'jquery';
 const $ = jQuery;
+// import jQuery from 'jquery';
+// const $ = jQuery;
 
 $.ajax({
   url: '/api/',
