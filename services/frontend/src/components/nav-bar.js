@@ -14,5 +14,5 @@ export default (() => {
       // this.querySelector('.contents').innerHTML = this.getAttribute('text');
     }
   }
-  window.customElements.define('app-shell', CustomElement);
+  window.customElements.define('nav-bar', CustomElement);
 });
