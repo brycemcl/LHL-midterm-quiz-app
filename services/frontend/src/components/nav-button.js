@@ -10,7 +10,7 @@ export default (() => {
       this.addEventListener("click", () => {
         console.log("here");
       });
-      // this.querySelector('.contents').innerHTML = this.getAttribute('text');
+      this.querySelector('div').innerHTML = this.getAttribute('text');
     }
   }
   window.customElements.define('nav-button', CustomElement);
