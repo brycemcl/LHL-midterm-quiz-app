@@ -10,7 +10,7 @@ export default (() => {
       this.innerHTML = htmlTemplate;
       const page = this.getAttribute('page');
       this.addEventListener("click", (event) => {
-        import('./../state').then(c => c.default({ this.getAttribute('page'), event }));
+        import('./../state').then(c => c.default({ page, event }));
       });
       this.querySelector('div').innerHTML = this.getAttribute('text');
     }
