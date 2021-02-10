@@ -3,12 +3,12 @@ export default (() => {
     constructor() {
       super();
       const htmlTemplate = `
-      <div class="bg--800 flex justify-between">
-      <!-- logo -->
-      <div class="">Lorem, ipsum dolor.</div>
-      <!-- nav -->
-      <div class="font-title">Lorem, ipsum dolor.</div>
-    </div>
+        <div class="bg--800 flex justify-between">
+          <!-- logo -->
+          <div class="">Lorem, ipsum dolor.</div>
+          <!-- nav -->
+          <div class="font-title">Lorem, ipsum dolor.</div>
+        </div>
         `;
       this.innerHTML = htmlTemplate;
       // this.querySelector('.contents').innerHTML = this.getAttribute('text');
