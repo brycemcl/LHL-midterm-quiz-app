@@ -29,7 +29,7 @@ const updateState = (() => {
   const actions = [];
   return (action) => {
     const { actionType, ...rest } = action;
-    api[actionType]({ data })..then((result) => {
+    api[actionType]({ data=null }).then((result) => {
 
     }).catch((err) => {
 
