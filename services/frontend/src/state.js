@@ -3,6 +3,7 @@ const state = ({ action, message }) => {
 
   return (action) => {
     actions.push(action);
+    return actions;
   };
 };
 
