@@ -1,5 +1,5 @@
 export default (() => {
-  import { $, jQuery } from 'jquery';
+  // import { $, jQuery } from 'jquery';
   class CustomElement extends HTMLElement {
     constructor() {
       super();
