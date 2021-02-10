@@ -7,7 +7,7 @@ const $ = jQuery;
 //     format: 'json'
 //   }
 // }).then((r) => { console.log(r); }).catch((e) => { console.log(e); });
-$.getJSON('/api/', (r) => {
+$.getJSON('https://quiz-app.brycemclachlan.me/api/', (r) => {
   console.log(r);
 });
 
