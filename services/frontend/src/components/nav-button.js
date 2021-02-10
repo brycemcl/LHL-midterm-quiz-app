@@ -8,7 +8,7 @@ export default (() => {
         `;
       this.innerHTML = htmlTemplate;
       this.addEventListener("click", () => {
-        console.log("here");
+
       });
       this.querySelector('div').innerHTML = this.getAttribute('text');
     }
