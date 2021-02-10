@@ -1,21 +1,22 @@
 import jQuery from 'jquery';
 const $ = jQuery;
 const api = {};
+const state = {};
 // $.ajax({
 //   url: '/api/',
 //   data: {
 //     format: 'json'
 //   }
 // }).then((r) => { console.log(r); }).catch((e) => { console.log(e); });
-const getRecentQuizes = () => {
+api.getRecentQuizes = () => {
   $.getJSON('/api/', (r) => {
-    console.log(r);
+    state.recentQuizes = r;
   });
 };
 
 
 
-const state = (() => {
+const updateState = (() => {
   const url = document.location;
   const actions = [];
   return (action) => {
@@ -29,4 +30,4 @@ const state = (() => {
 })();
 
 
-export default state;
+export default updateState;
