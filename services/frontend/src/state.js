@@ -15,6 +15,7 @@ setInterval(() => {
 api.getRecentQuizzes = () => {
   $.getJSON('/api/', (response) => {
     state.recentQuizzes = response;
+    updateDom.updateRecentQuizzes();
     return response;
   });
 };
