@@ -1,5 +1,6 @@
 import jQuery from 'jquery';
 const $ = jQuery;
+const qs = Document.querySelector;
 const api = {};
 const updateDom = {};
 const state = {
@@ -18,7 +19,7 @@ api.getRecentQuizzes = () => {
   });
 };
 updateDom.updateRecentQuizzes = () => {
-  Document.querySelector();
+  const container = qs("");
   if (state.page === "home") {
 
   } else {
