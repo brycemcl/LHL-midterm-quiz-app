@@ -18,7 +18,12 @@ api.getRecentQuizzes = () => {
   });
 };
 updateDom.updateRecentQuizzes = () => {
+  if (state.page === "home") {
 
+  } else {
+
+  }
+  //update dom here
 };
 
 
