@@ -1,10 +1,13 @@
 const state = (() => {
-  const startingURL = document.location;
+  const url = document.location;
   const actions = [];
   return (action) => {
+    if (action.url) {
+
+    }
     actions.push(action);
     console.log(actions);
-    return { actions, startingURL };
+    return { actions, url };
   };
 })();
 
