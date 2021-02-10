@@ -6,8 +6,7 @@ const getQuizzes = function() {
     SELECT * FROM quizzes
     WHERE is_public = true AND is_current = true;
   `)
-  .then(res => res.rows)
-  .catch(err => err.stack)
+  .then(res => res.rows);
 };
 
 //gets details for specic quiz given the id, someone is about to take quiz
@@ -16,8 +15,7 @@ const getQuizById = function(id) {
     SELECT * FROM quizzes
     WHERE id = $1
   `, [id])
-  .then(res => res.rows)
-  .catch(err => err.stack)
+  .then(res => res.rows);
 }
 
 //getting all the quizzes a user has created
@@ -26,8 +24,7 @@ const getQuizzesByIdCreated = function(user_id) {
     SELECT * FROM quizzes
     WHERE user_id = $1;
   `, [user_id])
-  .then(res => res.rows)
-  .catch(err => err.stack)
+  .then(res => res.rows);
 };
 
 //geting all the quizzes a user has taken
@@ -39,8 +36,7 @@ const getQuizzesByIdTaken = function(user_id) {
     JOIN quizzes ON quiz_id = quizzes.id
     WHERE answers.user_id = $1;
   `, [user_id])
-  .then(res => res.rows)
-  .catch(err => err.stack)
+  .then(res => res.rows);
 };
 
 // author creating a quiz
@@ -55,8 +51,7 @@ const postQuizzes = function(quiz) {
       VALUES ($1, $2, $3, $4, $5)
       RETURNING *;
     `, quiz_details)
-    .then(res => res.rows[0])
-    .catch(err => err.stack)
+    .then(res => res.rows[0]);
   }
 };
 
@@ -69,8 +64,7 @@ const editQuiz = function(quiz) {
     WHERE id = $2
     RETURNING *;
   `, changes)
-  .then(res => res.rows)
-  .catch(err => err.stack)
+  .then(res => res.rows);
 };
 
 // author updating a question of their quiz
@@ -90,7 +84,7 @@ const editQuestion = function(question) {
     WHERE id = $4
     RETURNING *;
   `, vals)
-  .then(res => res.rows[0]) //catch in function where routes are
+  .then(res => res.rows[0]); //catch in function where routes are
 };
 
 // author updating the options
@@ -112,7 +106,7 @@ const editOptions = function(options) {
     WHERE id = $4
     RETURNING *;
   `, vals)
-  .then(res => res.rows[0]) //catch in function where routes are
+  .then(res => res.rows[0]); //catch in function where routes are
 };
 
 
@@ -128,8 +122,7 @@ const editAnswers = function(changesObject, option_id) {
     SET option_id = $3
     WHERE answer_id IN (SELECT answers.id FROM answers WHERE id = $1 AND user_id = $2);
   `, vals)
-  .then(res => res.rows)
-  .catch(err => err.stack);
+  .then(res => res.rows);
 }
 
 
@@ -140,8 +133,7 @@ const deleteQuiz = function(quiz_id) {
     SET is_current = false
     WHERE id = $1;
   `, [quiz_id])
-  .then(res => res.rows)
-  .catch(err => err.stack)
+  .then(res => res.rows);
 };
 
 // deletes all the users answers associated with specifed user and quiz
