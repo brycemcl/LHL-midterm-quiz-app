@@ -29,5 +29,5 @@ const updateState = (() => {
   };
 })();
 
-
+console.log(state);
 export default updateState;
