@@ -5,7 +5,7 @@ const state = {};
 
 api.getRecentQuizzes = () => {
   $.getJSON('/api/', (r) => {
-    state.recentQuizes = r;
+    state.recentQuizzes = r;
   });
 };
 
