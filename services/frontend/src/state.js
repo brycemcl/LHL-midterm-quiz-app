@@ -1,4 +1,4 @@
-import { $ } from 'jquery';
+import { $, jQuery } from 'jquery';
 
 $.ajax({
   url: '/api/',
@@ -6,6 +6,7 @@ $.ajax({
     format: 'json'
   }
 }).then((r) => { console.log(r); }).catch((e) => { console.log(e); });
+
 
 
 
