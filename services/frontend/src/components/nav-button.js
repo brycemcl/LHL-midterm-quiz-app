@@ -8,8 +8,9 @@ export default (() => {
           <div class="font-title self-center"></div>
         `;
       this.innerHTML = htmlTemplate;
+      const page = this.getAttribute('page');
       this.addEventListener("click", (event) => {
-        import('./../state').then(c => c.default({ element.getAttribute('page'), event }));
+        import('./../state').then(c => c.default({ this.getAttribute('page'), event }));
       });
       this.querySelector('div').innerHTML = this.getAttribute('text');
     }
