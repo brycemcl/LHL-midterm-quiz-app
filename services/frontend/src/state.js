@@ -14,7 +14,15 @@ api.getRecentQuizzes = () => {
   });
 };
 
+
+
+
+
 api.getRecentQuizzes();
+
+
+
+
 
 const updateState = (() => {
   const url = document.location;
