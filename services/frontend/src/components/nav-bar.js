@@ -7,7 +7,7 @@ export default (() => {
           <!-- logo -->
           <app-logo></app-logo>
           <!-- nav -->
-          <nav-button></nav-button>
+          <nav-button text="here"></nav-button>
         </div>
         `;
       this.innerHTML = htmlTemplate;
