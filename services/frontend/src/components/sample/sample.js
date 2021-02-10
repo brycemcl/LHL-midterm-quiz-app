@@ -9,5 +9,4 @@ export default (() => {
     }
   }
   window.customElements.define('app-shell', CustomElement);
-
 });
