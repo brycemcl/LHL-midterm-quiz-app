@@ -42,11 +42,12 @@ const updateState = (() => {
   const actions = [];
   return (action) => {
     const { actionType, ...rest } = action;
-    api[actionType]({ data }).then((result) => {
+    api[actionType]({
+      datahttps://github.com/brycemcl/LHL-midterm-quiz-app/blob/frontend/services/frontend/src/state.js }).then((result) => {
 
     }).catch((err) => {
 
-    });
+      });
     actions.push(action);
     return { actions };
   };
