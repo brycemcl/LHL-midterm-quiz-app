@@ -32,22 +32,22 @@ updateDom.updateRecentQuizzes = () => {
 
 
 
-api.getRecentQuizzes();
+// api.getRecentQuizzes();
 
 
 
 
 
 const updateState = (() => {
-  const actions = [];
+  // const actions = [];
   return (action) => {
-    const { actionType, ...rest } = action;
+    const { actionType, data, ...rest } = action;
     api[actionType]({ data }).then((result) => {
 
     }).catch((err) => {
 
     });
-    actions.push(action);
+    // actions.push(action);
     return { actions };
   };
 })();
