@@ -8,10 +8,9 @@ export default (() => {
         `;
       this.innerHTML = htmlTemplate;
       this.addEventListener("click", (event) => {
-        import('./../state').then(c => c.default(event));
+        import('./../state').then(c => c.default({ this.getAttribute('page'), event }));
       });
       this.querySelector('div').innerHTML = this.getAttribute('text');
-      this.querySelector('div').innerHTML = this.getAttribute('page');
     }
   }
   window.customElements.define('nav-button', CustomElement);
