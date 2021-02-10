@@ -25,15 +25,12 @@ api.getRecentQuizzes();
 
 
 const updateState = (() => {
-  const url = document.location;
   const actions = [];
   return (action) => {
-    if (action.url) {
+    const { actionType, ...rest } = action;
 
-    }
     actions.push(action);
-    console.log(actions);
-    return { actions, url };
+    return { actions };
   };
 })();
 
