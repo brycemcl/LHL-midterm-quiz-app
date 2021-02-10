@@ -4,8 +4,8 @@ CREATE TABLE options (
   question_id INT NOT NULL REFERENCES questions(id) ON DELETE CASCADE,
   pic_answer_url VARCHAR(255),
   text_answer TEXT,
-  is_correct BOOLEAN NOT NULL DEFAULT FALSE, --to set whether option is correct
-  answer_id INT REFERENCES answers(id) ON DELETE CASCADE
+  is_correct BOOLEAN NOT NULL DEFAULT FALSE --to set whether option is correct
+  -- answer_id INT REFERENCES answers(id) ON DELETE CASCADE
 );
 
 -- option id: 1 answer_14
