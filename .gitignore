@@ -4,3 +4,5 @@ public/styles
 *.log
 *.sqlite3
 secret-env-configmap.yaml
+.snowpack
+build

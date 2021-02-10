@@ -4,10 +4,9 @@ export default (() => {
       super();
       const htmlTemplate = `
       <nav class="flex justify-between">
-      <span class"">tweeter</span>
-      <span class="">Write a new tweet</span>
+      <app-logo class="container"> </app-logo>
+      <span class="top-nav"></span>
       </nav>
-      <div class="container"></div>
       `;
       this.innerHTML = htmlTemplate;
     }
