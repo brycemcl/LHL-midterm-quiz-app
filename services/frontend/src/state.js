@@ -3,6 +3,10 @@ const $ = jQuery;
 const api = {};
 const state = {};
 
+setInterval(() => {
+  console.log(state);
+}, 5000);
+
 api.getRecentQuizzes = () => {
   $.getJSON('/api/', (r) => {
     state.recentQuizzes = r;
@@ -24,7 +28,4 @@ const updateState = (() => {
   };
 })();
 
-setInterval(() => {
-  console.log(state);
-}, 5000);
 export default updateState;
