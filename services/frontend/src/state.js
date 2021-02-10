@@ -1,4 +1,5 @@
 import jQuery from 'jquery';
+const $ = jQuery;
 
 $.ajax({
   url: '/api/',
