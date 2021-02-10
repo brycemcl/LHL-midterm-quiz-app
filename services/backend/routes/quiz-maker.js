@@ -52,6 +52,7 @@ router.post('/question', (req, res) => {
     })
 });
 
+// this route still needs testing
 router.post('/option', (req, res) => {
   const option = req.body;
   editOptions(option)
@@ -66,7 +67,7 @@ router.post('/', (req, res) => {
   // receiving a new quiz to be deleted
   const quiz = req.body;
   postQuizzes(quiz)
-    .then(quizzes => {
+    .then(quiz => {
       res.send('quiz added!');
     });
 });

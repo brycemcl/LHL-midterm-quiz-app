@@ -93,14 +93,16 @@ const editQuestion = function(question) {
 };
 
 // author updating the options
+// required field: question_id, id (option)
+// editOptions end point not working
 const editOptions = function(options) {
-  const keys = ['pic_answer_url', 'text_answer', 'is_correct', 'answer_id', 'id', 'question_id'];
+  const keys = ['pic_answer_url', 'text_answer', 'is_correct', 'id', 'question_id'];
   const vals = keys.map(key => options[key]); //undefined if not there
   return db.query(`
     with versionUpdate as (
       UPDATE quizzes
       SET version = (version + 0.1)
-      WHERE id IN (SELECT quiz_id FROM questions WHERE id = $6)
+      WHERE id IN (SELECT quiz_id FROM questions WHERE id = $5)
     )
     UPDATE options
     SET pic_answer_url = coalesce($1, pic_answer_url),
@@ -136,8 +138,8 @@ const deleteQuiz = function(quiz_id) {
   return db.query(`
     UPDATE quizzes
     SET is_current = false
-    WHERE id = ${quiz_id};
-  `)
+    WHERE id = $1;
+  `, [quiz_id])
   .then(res => res.rows)
   .catch(err => err.stack)
 };
@@ -146,8 +148,8 @@ const deleteQuiz = function(quiz_id) {
 const takerDeleteQuiz = function(user_id, quiz_id) {
   return db.query(`
     DELETE FROM answers
-    WHERE quiz_id = ${quiz_id} AND user_id = ${user_id}
-  `)
+    WHERE quiz_id = $1 AND user_id = $2
+  `, [quiz_id, user_id])
     .then((res) => res.rows);
 };
 

@@ -30,7 +30,8 @@ router.get('/:id', (req, res) => {
 // params:
 // answer: answer that the user made for a question
 // option: an option to change
-router.post('/:id', (req, res) => {
+// this will change based on the sql queries
+router.post('/:id/answer', (req, res) => {
   const { answer, option } = req.body;
   editAnswers(answer, option)
     .then(quizzes => {
@@ -39,6 +40,7 @@ router.post('/:id', (req, res) => {
 });
 
 // for a quiz taker, to display results
+// this will change based on the sql queries
 router.post('/:id/score', (req,res) => {
   const { quiz_id, user_id } = req.body;
   getScore(quiz_id, user_id)
@@ -49,7 +51,10 @@ router.post('/:id/score', (req,res) => {
 
 // Deleting answers from a quiz that the taker has done
 router.post('/:id/delete', (req, res) => {
-  takerDeleteQuiz(req.params.id)
+  const quiz_id = req.params.id;
+  const user_id = req.body.user_id;
+  console.log(user_id);
+  takerDeleteQuiz(user_id, quiz_id)
     .then(quizzes => {
       console.log(quizzes);
       res.send('quiz deleted');
