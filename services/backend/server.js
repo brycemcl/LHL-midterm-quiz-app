@@ -10,13 +10,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 const morgan = require('morgan');
-
-// PG database client/connection setup
-const { Pool } = require('pg').native;
-const dbParams = require('./lib/db.js');
 const { getQuizzes } = require('./db/queries/quiz-queries');
-const db = new Pool(dbParams);
-// db.connect();
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -36,16 +30,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // app.use("/api/widgets", widgetsRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
-const quizRoutes = require("./routes/make-quiz");
-app.use("/api/quizzes", quizRoutes);
+const quizMakerRoutes = require("./routes/quiz-maker");
+const quizTakerRoutes = require("./routes/quiz-taker");
+app.use("/api/quiz-maker", quizMakerRoutes);
+app.use("/api/quiz-taker", quizTakerRoutes);
 
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 app.get("/", (req, res) => {
-  const q = getQuizzes();
-  res.json(q);
-  // res.render("index");
+  getQuizzes()
+    .then(quizzes => {
+      res.json(quizzes);
+    });
 });
 
 app.listen(PORT, () => {
