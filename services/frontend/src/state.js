@@ -9,8 +9,9 @@ setInterval(() => {
 }, 5000);
 
 api.getRecentQuizzes = () => {
-  $.getJSON('/api/', (r) => {
-    state.recentQuizzes = r;
+  $.getJSON('/api/', (response) => {
+    state.recentQuizzes = response;
+    return response;
   });
 };
 
@@ -28,7 +29,11 @@ const updateState = (() => {
   const actions = [];
   return (action) => {
     const { actionType, ...rest } = action;
+    api[actionType]({ data })..then((result) => {
 
+    }).catch((err) => {
+
+    });
     actions.push(action);
     return { actions };
   };
