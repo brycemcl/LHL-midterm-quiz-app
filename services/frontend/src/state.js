@@ -1,7 +1,9 @@
 import jQuery from 'jquery';
 const $ = jQuery;
 const api = {};
-const state = {};
+const state = {
+  page: "home"
+};
 
 setInterval(() => {
   console.clear();
@@ -11,6 +13,9 @@ setInterval(() => {
 api.getRecentQuizzes = () => {
   $.getJSON('/api/', (response) => {
     state.recentQuizzes = response;
+    if (page === "home") {
+
+    }
     return response;
   });
 };
