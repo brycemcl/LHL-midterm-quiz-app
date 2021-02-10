@@ -7,11 +7,11 @@ export default (() => {
           <div class="font-title self-center"></div>
         `;
       this.innerHTML = htmlTemplate;
-      this.querySelector('div').innerHTML = this.getAttribute('text');
-      this.querySelector('div').innerHTML = this.getAttribute('page');
       this.addEventListener("click", (event) => {
         import('./../state').then(c => c.default(event));
       });
+      this.querySelector('div').innerHTML = this.getAttribute('text');
+      this.querySelector('div').innerHTML = this.getAttribute('page');
     }
   }
   window.customElements.define('nav-button', CustomElement);
