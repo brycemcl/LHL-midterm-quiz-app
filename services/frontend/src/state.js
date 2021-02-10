@@ -18,6 +18,7 @@ api.getRecentQuizzes = () => {
   });
 };
 updateDom.updateRecentQuizzes = () => {
+  Document.querySelector();
   if (state.page === "home") {
 
   } else {
