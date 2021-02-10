@@ -7,9 +7,11 @@ const $ = jQuery;
 //     format: 'json'
 //   }
 // }).then((r) => { console.log(r); }).catch((e) => { console.log(e); });
-$.getJSON('/api/', (r) => {
-  console.log(r);
-});
+const getRecentQuizes = () => {
+  $.getJSON('/api/', (r) => {
+    console.log(r);
+  });
+};
 
 
 
