@@ -42,11 +42,12 @@ const updateState = (() => {
   // const actions = [];
   return (action) => {
     const { actionType, data = null, ...rest } = action;
-    api[actionType]({ data }).then((result) => {
+    api[actionType]({ data });
+    // .then((result) => {
 
-    }).catch((err) => {
+    // }).catch((err) => {
 
-    });
+    // });
     // actions.push(action);
     return { actions };
   };
