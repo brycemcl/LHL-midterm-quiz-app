@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Roboto+Slab&display=swap");
+* {
+  @apply bg-white text-black;
+  font-family: "Lato", sans-serif;
+  font-size: 20px;
+}
+*,
+*:focus,
+*:hover {
+  outline: none;
+}
+// .primary-background-color {
+//   @apply bg-white;
+// }
+// .secondary-background-color {
+//   @apply bg-blue-200;
+// }
+.primary-card-color {
+  @apply bg-blue-200;
+}
+.secondary-card-color {
+  @apply bg-blue-100;
+}
+.card:hover {
+  .primary-card-color {
+    @apply bg-blue-100;
+  }
+  .secondary-card-color {
+    @apply bg-blue-50;
+  }
+}
+.button {
+  @apply bg-blue-500 hover:bg-blue-400 flex items-center content-center justify-center rounded-md py-2 px-4 text-white;
+  font-family: "Roboto Slab", serif;
+}
+
+.secondary-button-color {
+  @apply bg-red-500 hover:bg-red-400;
+}
+
+.logo {
+  @apply bg-blue-500 flex items-center content-center justify-center text-lg w-12 h-12 text-white;
+  border-radius: 50%;
+  font-family: "Roboto Slab", serif;
+}
+
+.font-title {
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+}
+
+.quiz-questions {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+}

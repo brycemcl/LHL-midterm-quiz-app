@@ -21,4 +21,3 @@ INSERT INTO options_answers (id, answer_id, option_id) VALUES (228, 221, 213);
 INSERT INTO options_answers (id, answer_id, option_id) VALUES (29, 130, 15);
 INSERT INTO options_answers (id, answer_id, option_id) VALUES (129, 131, 112);
 INSERT INTO options_answers (id, answer_id, option_id) VALUES (229, 231, 213);
-
