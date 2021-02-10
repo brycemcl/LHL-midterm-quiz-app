@@ -1,6 +1,6 @@
 import jQuery from 'jquery';
 const $ = jQuery;
-
+const api = {};
 // $.ajax({
 //   url: '/api/',
 //   data: {
