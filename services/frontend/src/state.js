@@ -3,13 +3,13 @@ const $ = jQuery;
 const api = {};
 const state = {};
 
-const updateRecentQuizes = () => {
-  api.getRecentQuizes = () => {
-    $.getJSON('/api/', (r) => {
-      state.recentQuizes = r;
-    });
-  };
+api.getRecentQuizes = () => {
+  $.getJSON('/api/', (r) => {
+    state.recentQuizes = r;
+  });
 };
+
+
 
 const updateState = (() => {
   const url = document.location;
