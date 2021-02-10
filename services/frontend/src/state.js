@@ -4,6 +4,7 @@ const api = {};
 const state = {};
 
 setInterval(() => {
+  console.clear();
   console.log(state);
 }, 5000);
 
