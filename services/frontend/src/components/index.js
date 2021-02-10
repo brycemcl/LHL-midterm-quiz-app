@@ -1,0 +1,1 @@
+import('./app-logo.js').then(c => c.default());
