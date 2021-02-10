@@ -4,7 +4,7 @@ const qs = Document.querySelector;
 const api = {};
 const updateDom = {};
 const state = {
-  page: "home"
+  page: "home"//update based off of url of page
 };
 
 // setInterval(() => {
