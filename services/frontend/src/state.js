@@ -24,5 +24,7 @@ const updateState = (() => {
   };
 })();
 
-console.log(state);
+setInterval(() => {
+  console.log(state);
+}, 5000);
 export default updateState;
