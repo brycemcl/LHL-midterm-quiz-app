@@ -9,7 +9,7 @@ api.getRecentQuizes = () => {
   });
 };
 
-
+api.getRecentQuizes;
 
 const updateState = (() => {
   const url = document.location;
