@@ -1,3 +1,4 @@
+import { $, jQuery } from 'jquery';
 const state = (() => {
   const url = document.location;
   const actions = [];
