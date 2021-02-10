@@ -5,7 +5,7 @@ export default (() => {
       const htmlTemplate = `
         <div class="bg--800 flex justify-between">
           <!-- logo -->
-          <div class="">Lorem, ipsum dolor.</div>
+          <app-logo></app-logo>
           <!-- nav -->
           <div class="font-title">Lorem, ipsum dolor.</div>
         </div>
