@@ -37,7 +37,7 @@ router.post('/quiz', (req, res) => {
   editQuiz(quiz)
     .then(quizzes => {
       res.json(quizzes);
-    })
+    });
 });
 
 router.post('/question', (req, res) => {
@@ -45,7 +45,7 @@ router.post('/question', (req, res) => {
   editQuestion(question)
     .then(quizzes => {
       res.json(quizzes);
-    })
+    });
 });
 
 // this route still needs testing
@@ -54,7 +54,7 @@ router.post('/option', (req, res) => {
   editOptions(option)
     .then(quizzes => {
       res.json(quizzes);
-    })
+    });
 });
 
 // Adding a new quiz
@@ -75,7 +75,7 @@ router.post('/:id/delete', (req, res) => {
   deleteQuiz(quiz_id)
     .then(quizzes => {
       res.send('quiz deleted!');
-    })
+    });
 });
 
 module.exports = router;

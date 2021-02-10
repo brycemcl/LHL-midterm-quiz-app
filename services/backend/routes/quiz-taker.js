@@ -46,7 +46,7 @@ router.post('/:id/score', (req,res) => {
   getScores(user_id, quiz_id)
     .then(score => {
       res.json(score);
-    })
+    });
 });
 
 // Deleting answers from a quiz that the taker has done
@@ -57,7 +57,7 @@ router.post('/:id/delete', (req, res) => {
     .then(quizzes => {
       console.log(quizzes);
       res.send('quiz deleted');
-    })
+    });
 });
 
 module.exports = router;
