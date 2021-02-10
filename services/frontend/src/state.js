@@ -1,4 +1,4 @@
-import * as $ from 'jquery';
+import jQuery from 'jquery';
 const $ = jQuery;
 // import jQuery from 'jquery';
 // const $ = jQuery;
