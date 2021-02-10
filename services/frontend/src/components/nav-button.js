@@ -4,7 +4,7 @@ export default (() => {
     constructor() {
       super();
       const htmlTemplate = `
-          <div class="font-title self-center">Lorem, ipsum dolor.</div>
+          <div class="font-title self-center"></div>
         `;
       this.innerHTML = htmlTemplate;
       this.addEventListener("click", () => {
