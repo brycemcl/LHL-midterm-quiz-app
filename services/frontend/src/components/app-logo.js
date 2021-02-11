@@ -3,11 +3,9 @@ export default (() => {
     constructor() {
       super();
       const htmlTemplate = `
-      <div class="flex flex-col justify-center h-full">
-      <div class="logo">
+      <span class="logo">
       Q
-      </div>
-      </div>
+      </span>
       `;
       this.innerHTML = htmlTemplate;
     }

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getQuizzesByIdTaken, getQuizById, editAnswers, takerDeleteQuiz, getScores, getQuestion, getOptions, getQuestions } = require('../db/queries/quiz-queries');
+const { getQuizzesByIdTaken, getQuizById, editAnswers, takerDeleteQuiz, getScores } = require('../db/queries/quiz-queries');
 const bodyParser = require('body-parser');
 
 // use and set middleware
@@ -16,42 +16,13 @@ router.get('/user/:id', (req, res) => {
     });
 });
 
-// A specific quiz that the user wants to get
+// A specific quiz that the user has taken
 router.get('/:id', (req, res) => {
   const quiz_id = req.params.id;
   getQuizById(quiz_id)
     .then(quiz => {
       res.json(quiz);
     });
-  // getQuestion(quiz_id)
-  //   .then(question => {
-  //     res.json(question);
-  //     return question;
-  //   })
-  //   .then(question => {
-  //     return getOptions(question.id);
-  //   })
-  //   .then(options => {
-  //     res.json(options);
-  //   });
-});
-
-router.get('/questions/:id', (req, res) => {
-  const quiz_id = req.params.id;
-  getQuestions(quiz_id)
-  .then(questions => res.json(questions));
-})
-
-router.get('/question/:id',(req, res) => {
-  const question_id = req.params.id;
-  getQuestion(question_id)
-  .then(question => res.json(question));
-});
-
-router.get('/options/:id', (req, res) => {
-  const question_id = req.params.id;
-  getOptions(question_id)
-  .then(options => res.json(options));
 });
 
 // Editing a specific quiz
@@ -81,7 +52,7 @@ router.post('/:id/score', (req,res) => {
 // Deleting answers from a quiz that the taker has done
 router.post('/:id/delete', (req, res) => {
   const quiz_id = req.params.id;
-  const user_id = req.body;
+  const user_id = req.body.user_id;
   takerDeleteQuiz(user_id, quiz_id)
     .then(quizzes => {
       console.log(quizzes);

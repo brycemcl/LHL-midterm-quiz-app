@@ -55,35 +55,6 @@ const postQuizzes = function(quiz) {
   }
 };
 
-//gets specific question given quiz
-const getQuestions = function(quiz_id) {
-  return db.query(`
-    SELECT id, question, sub_text, question_pic_url
-    FROM questions
-    WHERE quiz_id = $1;
-  `, [quiz_id])
-  .then(res => res.rows);
-};
-
-const getQuestion = function(question_id) {
-  return db.query(`
-    SELECT question
-    FROM questions
-    WHERE id = $1;
-  `, [question_id])
-  .then(res => res.rows);
-}
-
-//gets specific question given quiz
-const getOptions = function(question_id) {
-  return db.query(`
-    SELECT pic_answer_url, text_answer
-    FROM options
-    WHERE question_id IN (SELECT id FROM questions WHERE id = $1)
-  `,[question_id])
-  .then(res => res.rows);
-}
-
 // author edit the quiz's title and change the version
 const editQuiz = function(quiz) {
   const changes = [quiz.title, quiz.id];
@@ -199,8 +170,5 @@ module.exports = {
   editAnswers,
   takerDeleteQuiz,
   deleteQuiz,
-  getScores,
-  getQuestion,
-  getOptions,
-  getQuestions
+  getScores
 };
