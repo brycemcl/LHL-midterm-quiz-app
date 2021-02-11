@@ -8,7 +8,7 @@ export default (() => {
         <div class="bg--800 flex justify-between">
           <!-- logo -->
           <app-logo></app-logo>
-          <div id="nav-buttons">
+          <div class="nav-buttons">
           <!-- nav -->
           <nav-button text="here"></nav-button>
         </div>
@@ -18,7 +18,7 @@ export default (() => {
       // this.querySelector('.contents').innerHTML = this.getAttribute('text');
     }
     connectedCallback() {
-      const navButtons = document.querySelector("#nav-buttons");
+      const navButtons = document.querySelector(".nav-buttons");
       console.log(navButtons);
       import('./../state').then(c => c.default({ actionType: "getNavPages", data: {} })).then((c) => {
         $(navButtons).empty();
