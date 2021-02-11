@@ -43,9 +43,9 @@ const updateState = (() => {
     const { actionType, data = null, ...rest } = action;
     return api[actionType]({ data });
     .then((result) => {
-      return;
+      return { state };
     }).catch((err) => {
-
+      return { state };
     });
   };
 }) ();
