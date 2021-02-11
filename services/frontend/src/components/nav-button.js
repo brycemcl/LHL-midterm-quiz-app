@@ -4,7 +4,7 @@ export default (() => {
       super();
       const element = this;
       const htmlTemplate = `
-          <div class="font-title self-center p-6"></div>
+          <div class="font-title self-center p-4"></div>
         `;
       this.innerHTML = htmlTemplate;
       const pageAttribute = this.getAttribute('page');
