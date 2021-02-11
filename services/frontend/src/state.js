@@ -53,8 +53,7 @@ updateDom.updateRecentQuizzes = () => {
 
 const updateState = (() => {
   return (action) => {
-    const { actionType, data = null } = action;
-    return api[actionType]({ data })
+    return api[action.actionType]({ data })
       .then((result) => {
         return { state };
       }).catch((err) => {
