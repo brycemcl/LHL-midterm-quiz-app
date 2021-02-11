@@ -48,6 +48,6 @@ app.get("/api/", (req, res) => {
     });
 });
 
-app.listen(PORT, () => {
+app.listen(8080, () => {
   console.log(`Backend listening on port ${PORT}`);
 });
