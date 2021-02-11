@@ -6,8 +6,10 @@ export default (() => {
         <div class="bg--800 flex justify-between">
           <!-- logo -->
           <app-logo></app-logo>
+          <div>
           <!-- nav -->
           <nav-button text="here"></nav-button>
+        </div>
         </div>
         `;
       this.innerHTML = htmlTemplate;
