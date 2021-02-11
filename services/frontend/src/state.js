@@ -21,7 +21,8 @@ events.getNavPages = () => {
   }
   return pagesToReturn.map((item) => [pages[item], item]).map((item) => {
     // item.shotName = 
-    console.log(item);
+    const newItem = item[0];
+    console.log(newItem);
     return item;
   });
 };
