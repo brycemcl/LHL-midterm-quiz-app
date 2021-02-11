@@ -22,7 +22,6 @@ events.getNavPages = () => {
 const _ = require('./makerStateFunction');
 
 
-
 // get all the quizzes
 events.getRecentQuizzes = () => {
   $.getJSON('/api/', (response) => {
