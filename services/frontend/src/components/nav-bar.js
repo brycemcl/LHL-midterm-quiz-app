@@ -7,7 +7,7 @@ export default (() => {
       const htmlTemplate = `
         <div class="bg--800 flex justify-between">
           <!-- logo -->
-          <app-logo class="h-full"></app-logo>
+          <app-logo></app-logo>
           <div class="nav-buttons flex">
         </div>
         </div>
