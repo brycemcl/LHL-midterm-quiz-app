@@ -1,3 +1,5 @@
+import jQuery from 'jquery';
+const $ = jQuery;
 export default (() => {
   class CustomElement extends HTMLElement {
     constructor() {
