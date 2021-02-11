@@ -19,7 +19,7 @@ events.getNavPages = () => {
   }
 };
 
-const _ = require('./makerStateFunction');
+// const _ = require('./makerStateFunction');
 
 
 // get all the quizzes
