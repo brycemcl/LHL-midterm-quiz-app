@@ -13,6 +13,14 @@ events.getNavPages = () => {
     return ["Home", "Browse Quizzes", "Login"];
   }
 };
+events.changePage = ({ data }) => {
+  console.log(data);
+  if (state.page) {
+    return ["Home", "My Quizzes", "Browse Quizzes", "Log Out"];
+  } else {
+    return ["Home", "Browse Quizzes", "Login"];
+  }
+};
 
 // const _ = require('./makerStateFunction');
 
