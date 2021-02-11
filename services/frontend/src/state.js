@@ -19,7 +19,8 @@ events.getNavPages = () => {
   } else {
     pagesToReturn = ["home", "usersQuizzes", "login"];
   }
-  return pagesToReturn.map((item) => pages[item]).map((item) => {
+  return pagesToReturn.map((item) => [pages[item], item]).map((item) => {
+    // item.shotName = 
     console.log(item);
     return item;
   });
