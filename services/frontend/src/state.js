@@ -7,7 +7,15 @@ const state = {};
 state.page = "home"; //update based off of url of page
 
 api.getNavPages = () => {
-  return state.page;
+  if (state.page === "home") {
+    return [];
+  } else if (state.page === "home") {
+    return [];
+  } else if (state.page === "home") {
+    return [];
+  } else if (state.page === "home") {
+    return [];
+  } else 
 };
 
 // setInterval(() => {
