@@ -5,6 +5,7 @@ const events = {};
 export const state = {};
 state.page = "home"; //update based off of url of page
 state.user = 1; //update based off of url of page
+
 const pages = {
   home: { name: "Home", page: "/" },
   usersQuizzes: { name: "My Quizzes", page: "/my-quizzes" },
@@ -12,6 +13,7 @@ const pages = {
   logout: { name: "Logout", page: "/" },
   login: { name: "Login", page: "/" }
 };
+
 events.getNavPages = () => {
   let pagesToReturn = [];
   if (state.user) {
@@ -30,9 +32,6 @@ events.changePage = (args) => {
   console.log(state);
 };
 
-// const _ = require('./makerStateFunction');
-
-
 // get all the quizzes
 events.getRecentQuizzes = () => {
   $.getJSON('/api/', (response) => {
@@ -41,37 +40,6 @@ events.getRecentQuizzes = () => {
   });
 };
 
-events.getQuizzesTakenByUser = () => {
-  $.getJSON(`'/api/quiz-taker/user/${id}`, (response) => {
-    state.recentQuizzes = response;
-    return response;
-  });
-};
-
-// events.getQuizById = () => {
-//   $.getJSON(`/api/quiz-taker/${id}`, (response) => {
-//     state.specificQuiz = response;
-//     return response;
-//   });
-// };
-
-
-// $.ajax({ url: `/api/quiz-taker/${id}/answer`, method: 'POST', data: /*onclick submitted data*/})
-//   .then(() => {
-
-//   });
-
-// $.ajax({ url: `/api/quiz-taker/${id}/score`, method: 'POST', data: /*onclick submitted data*/})
-//   .then(() => {
-
-//   });
-
-// $.ajax({ url: `/api/quiz-taker/${id}/delete`, method: 'POST', data: /*onclick submitted data*/})
-//   .then(() => {
-
-//   });
-
-// api.getRecentQuizzes();
 const updateState = (() => {
   return (action) => {
     const { actionType, data = null } = action;

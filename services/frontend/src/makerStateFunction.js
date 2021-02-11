@@ -1,88 +1,81 @@
-api.getQuizzesByIdCreated = () => {
-  $.getJSON(`/api/quiz-maker/user/${id}`, (response) => {
+import state from './state';
+
+events.getQuizzesByIdCreated = (user_id) => {
+  $.getJSON(`/api/quiz-maker/user/${user_id}`, (response) => {
     state.quizzesCreated = response;
-    updateDom.updateQuizzesByIdCreated();
     return response;
   });
 };
 
-api.getQuizById = () => {
-  $.getJSON(`/api/quiz-maker/${id}`, (response) => {
+events.getQuizById = (quiz_id) => {
+  $.getJSON(`/api/quiz-maker/${quiz_id}`, (response) => {
     state.specificQuiz = response;
-    updateDom.updateQuizById();
     return response;
   });
 };
 
-updateDom.updateQuizById = () => {
-  const container = qs("");
-  if (state.page === "home") {
-
-  } else {
-
-  }
-};
-
-api.editQuiz = () => {
+events.editQuiz = (quiz) => {
   $.ajax({
     url: '/api/quiz-maker/quiz',
     method: 'POST',
-    data: $(this).serialize()
+    data: quiz
   })
   .then(() => {
     console.log('Success!');
   })
 };
 
-api.editQuestion = () => {
+events.editQuestion = (question) => {
+  const data = { question };
   $.ajax({
     url: '/api/quiz-maker/question',
     method: 'POST',
-    data: $(this).serialize()
+    data: question
   })
   .then(() => {
-    console.log('Question edited succesfully!');
+    console.log('question edited succesfully!');
   })
 };
 
-api.editOption = () => {
+events.editOption = (option) => {
   $.ajax({
     url: '/api/quiz-maker/option',
     method: 'POST',
-    data: $(this).serialize()
+    data: option
   })
   .then(() => {
-
+    console.log('option editted');
   })
 };
 
-api.addQuiz = () => {
+events.addQuiz = (quiz) => {
   $.ajax({
     url: '/api/quiz-maker/',
     method: 'POST',
-    data: $(this).serialize()
-  .then(() => {
-    console.log('quiz added!')
+    data: quiz
   })
-}
+  .then(() => {
+    console.log('quiz added!');
+  })
+};
 
-api.deleteQuiz = () => {
+events.deleteQuiz = (quiz_id) => {
   $.ajax({
-    url: `/api/quiz-maker/${id}/delete`,
-    method: 'POST',
-    data: /*onclick submitted data*/})
-  .then(() => {
-
+    url: `/api/quiz-maker/${quiz_id}/delete`,
+    method: 'POST'
   })
-}
+  .then(() => {
+    console.log('quiz deleted');
+  })
+};
 
-module.exports = {
-  getQuizzesByIdCreated,
-  getQuizById,
-  updateQuizById,
-  editQuiz,
-  editQuestion,
-  editOption,
-  addQuiz,
-  deleteQuiz
-}
+// export {
+//   getQuizzesByIdCreated,
+//   getQuizById,
+//   updateQuizById,
+//   editQuiz,
+//   editQuestion,
+//   editOption,
+//   addQuiz,
+//   deleteQuiz
+// };

@@ -52,7 +52,7 @@ router.post('/:id/score', (req,res) => {
 // Deleting answers from a quiz that the taker has done
 router.post('/:id/delete', (req, res) => {
   const quiz_id = req.params.id;
-  const user_id = req.body.user_id;
+  const user_id = req.body;
   takerDeleteQuiz(user_id, quiz_id)
     .then(quizzes => {
       console.log(quizzes);
