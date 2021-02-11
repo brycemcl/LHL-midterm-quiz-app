@@ -20,10 +20,9 @@ events.getNavPages = () => {
     pagesToReturn = ["home", "usersQuizzes", "login"];
   }
   return pagesToReturn.map((item) => [pages[item], item]).map((item) => {
-    // item.shotName = 
     const newItem = item[0];
-    console.log(newItem);
-    return item;
+    newItem.shortName = item[1];
+    return newItem;
   });
 };
 events.changePage = ({ data }) => {
