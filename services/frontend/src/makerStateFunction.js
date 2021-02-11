@@ -29,9 +29,9 @@ api.editQuiz = () => {
     method: 'POST',
     data: $(this).serialize()
   })
-    .then(() => {
-      console.log('Success!');
-    });
+  .then(() => {
+    console.log('Success!');
+  })
 };
 
 api.editQuestion = () => {
@@ -40,9 +40,9 @@ api.editQuestion = () => {
     method: 'POST',
     data: $(this).serialize()
   })
-    .then(() => {
-      console.log('Question edited succesfully!');
-    });
+  .then(() => {
+    console.log('Question edited succesfully!');
+  })
 };
 
 api.editOption = () => {
@@ -51,37 +51,38 @@ api.editOption = () => {
     method: 'POST',
     data: $(this).serialize()
   })
-    .then(() => {
+  .then(() => {
 
-    });
+  })
 };
 
-// api.addQuiz = () => {
-//   $.ajax({
-//     url: '/api/quiz-maker/',
-//     method: 'POST',
-//     data: $(this).serialize()
-//       .then(() => {
-//         console.log('quiz added!');
-//       })
-//   }
+api.addQuiz = () => {
+  $.ajax({
+    url: '/api/quiz-maker/',
+    method: 'POST',
+    data: $(this).serialize()
+  .then(() => {
+    console.log('quiz added!')
+  })
+}
 
-// api.deleteQuiz = () => {
-//       $.ajax({
-//         url: `/api/quiz-maker/${id}/delete`,
-//         method: 'POST',
-//         data: /*onclick submitted data*/})
-//         .then(() => {
+api.deleteQuiz = () => {
+  $.ajax({
+    url: `/api/quiz-maker/${id}/delete`,
+    method: 'POST',
+    data: /*onclick submitted data*/})
+  .then(() => {
 
-//         });
-//     }
+  })
+}
 
-export getQuizzesByIdCreated,
+module.exports = {
+  getQuizzesByIdCreated,
   getQuizById,
   updateQuizById,
   editQuiz,
   editQuestion,
   editOption,
   addQuiz,
-  deleteQuiz;
-
+  deleteQuiz
+}
