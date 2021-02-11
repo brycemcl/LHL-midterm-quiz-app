@@ -54,12 +54,12 @@ updateDom.updateRecentQuizzes = () => {
 const updateState = (() => {
   return (action) => {
     const { actionType, data = null } = action;
-    return api[actionType]({ data })
-      .then((result) => {
-        return { state };
-      }).catch((err) => {
-        return { state };
-      });
+    return api[actionType]({ data });
+    // .then((result) => {
+    //   return { state };
+    // }).catch((err) => {
+    //   return { state };
+    // });
   };
 })();
 console.log(updateState);
