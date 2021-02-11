@@ -3,9 +3,8 @@ const $ = jQuery;
 const qs = Document.querySelector;
 const api = {};
 const updateDom = {};
-const state = {
-  page: "home"//update based off of url of page
-};
+const state = {};
+state.page = "home"; //update based off of url of page
 
 // setInterval(() => {
 //   console.clear();
