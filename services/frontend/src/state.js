@@ -6,8 +6,8 @@ const updateDom = {};
 const state = {};
 state.page = "home"; //update based off of url of page
 
-api.getState = () => {
-  return state;
+api.getNavPages = () => {
+  return state.page;
 };
 
 // setInterval(() => {
