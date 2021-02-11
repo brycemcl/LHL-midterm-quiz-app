@@ -19,7 +19,7 @@ events.getNavPages = () => {
   } else {
     pagesToReturn = ["home", "usersQuizzes", "login"];
   }
-  return pagesToReturn.map((item) => { pages[item]);
+  return pagesToReturn.map((item) => pages[item]);
 };
 events.changePage = ({ data }) => {
   console.log(data.page);
