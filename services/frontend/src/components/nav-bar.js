@@ -22,7 +22,7 @@ export default (() => {
         c.forEach(element => {
           console.log(element);
           const button = document.createElement("div");
-          button.outerHTML = `<nav-button text="${element}"></nav-button>`;
+          button.innerHTML = `<nav-button text="${element}"></nav-button>`;
         });
       });
     }
