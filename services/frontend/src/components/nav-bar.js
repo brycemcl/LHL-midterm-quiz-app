@@ -20,7 +20,7 @@ export default (() => {
         c.forEach(element => {
           console.log(element);
           const button = new document.createElement(nav - button);
-
+          button.outerHTML = `<nav-button text="${element}"></nav-button>`;
         });
       });
     }
