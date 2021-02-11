@@ -19,10 +19,11 @@ events.getNavPages = () => {
   } else {
     pagesToReturn = ["home", "usersQuizzes", "login"];
   }
-  return pagesToReturn.map((item) => pages[item]);
+  return pagesToReturn.map((item) => { item: pages[item]; });
 };
 events.changePage = ({ data }) => {
   console.log(data.page);
+  state.page = pages.;
   // if (state.page) {
   //   return [{ name: "Home", url: "/" }, { name: "My Quizzes", url: "/my-quizzes" }, "Browse Quizzes", "Log Out"];
   // } else {
