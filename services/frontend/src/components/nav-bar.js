@@ -23,6 +23,7 @@ export default (() => {
           console.log(element);
           const button = document.createElement("div");
           button.innerHTML = `<nav-button text="${element}"></nav-button>`;
+          console.log(button);
         });
       });
     }
