@@ -14,9 +14,6 @@ export default (() => {
       this.innerHTML = htmlTemplate;
       // this.querySelector('.contents').innerHTML = this.getAttribute('text');
     }
-    connectedCallback() {
-      import('./../state').then(c => c.default({ actionType: "getNavPages", data: {} }));
-    }
   }
   window.customElements.define('app-shell', CustomElement);
 });
