@@ -13,7 +13,6 @@ export default (() => {
         </div>
         `;
       this.innerHTML = htmlTemplate;
-      // this.querySelector('.contents').innerHTML = this.getAttribute('text');
     }
     connectedCallback() {
       const navButtons = document.querySelector(".nav-buttons");
