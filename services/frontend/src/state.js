@@ -23,7 +23,7 @@ events.getNavPages = () => {
 };
 events.changePage = ({ data }) => {
   console.log(data.page);
-  state.page = pages.;
+  // state.page = pages.;
   // if (state.page) {
   //   return [{ name: "Home", url: "/" }, { name: "My Quizzes", url: "/my-quizzes" }, "Browse Quizzes", "Log Out"];
   // } else {
