@@ -55,7 +55,7 @@ const updateState = (() => {
   return (action) => {
     const { actionType, data = null } = action;
     console.log(api[actionType]);
-    api[actionType]({ data })
+    return api[actionType]({ data })
       .then((result) => {
         return { state };
       }).catch((err) => {
@@ -63,5 +63,6 @@ const updateState = (() => {
       });
   };
 })();
-
+console.log(updateState);
+// const states = updateState
 export default updateState;
