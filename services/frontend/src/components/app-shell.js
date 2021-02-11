@@ -14,9 +14,6 @@ export default (() => {
       this.innerHTML = htmlTemplate;
       // this.querySelector('.contents').innerHTML = this.getAttribute('text');
     }
-    connectedCallback() {
-      import('./../state').then(c => c.default({ actionType: "changePage", data: {} })).then(({ state }) => { console.log(state); });
-    }
   }
   window.customElements.define('app-shell', CustomElement);
 });
