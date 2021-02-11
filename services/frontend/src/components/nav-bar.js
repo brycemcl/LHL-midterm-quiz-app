@@ -20,7 +20,7 @@ export default (() => {
         $(navButtons).empty();
         c.forEach(element => {
           const button = document.createElement("template");
-          button.innerHTML = `<nav-button text="${element.name}" page="${element.url}"></nav-button>`;
+          button.innerHTML = `<nav-button text="${element.name}" page="${element.page}"></nav-button>`;
           navButtons.appendChild(button.content.cloneNode(true));
         });
       });
