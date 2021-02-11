@@ -9,8 +9,6 @@ export default (() => {
           <!-- logo -->
           <app-logo></app-logo>
           <div class="nav-buttons">
-          <!-- nav -->
-          <nav-button text="here"></nav-button>
         </div>
         </div>
         `;
