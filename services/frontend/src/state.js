@@ -9,9 +9,9 @@ state.page = "home"; //update based off of url of page
 api.getNavPages = () => {
   if (state.page === "home") {
     return [];
-  } else if (state.page === "home") {
+  } else if (state.page === "take") {
     return [];
-  } else if (state.page === "home") {
+  } else if (state.page === "make") {
     return [];
   } else if (state.page === "home") {
     return [];
