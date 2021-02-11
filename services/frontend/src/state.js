@@ -8,9 +8,9 @@ state.user = 1; //update based off of url of page
 
 events.getNavPages = () => {
   if (state.user) {
-    return ["Home", "My Quizzes", "All Quizzes", "Log Out"];
+    return ["Home", "My Quizzes", "Browse Quizzes", "Log Out"];
   } else {
-    return ["Home", "All Quizzes", "Login"];
+    return ["Home", "Browse Quizzes", "Login"];
   }
 };
 
