@@ -41,15 +41,13 @@ const updateState = (() => {
   // const actions = [];
   return (action) => {
     const { actionType, data = null, ...rest } = action;
-    api[actionType]({ data });
-    // .then((result) => {
+    return api[actionType]({ data });
+    .then((result) => {
 
-    // }).catch((err) => {
+    }).catch((err) => {
 
-    // });
-    // actions.push(action);
-    return { actions };
+    });
   };
-})();
+}) ();
 
 export default updateState;
