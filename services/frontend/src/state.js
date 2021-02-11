@@ -3,8 +3,21 @@ const $ = jQuery;
 const qs = Document.querySelector;
 const api = {};
 const updateDom = {};
-const state = {
-  page: "home"//update based off of url of page
+const state = {};
+state.page = "home"; //update based off of url of page
+
+api.getNavPages = () => {
+  if (state.page === "home") {
+    return ["Home", "All Quizzes"];
+  } else if (state.page === "take") {
+    return [];
+  } else if (state.page === "make") {
+    return [];
+  } else if (state.page === "login") {
+    return [];
+  } else {
+    return [];
+  }
 };
 
 const _ = require('./makerStateFunction');
@@ -72,17 +85,9 @@ $.ajax({ url: `/api/quiz-taker/${id}/delete`, method: 'POST', data: /*onclick su
 
 // api.getRecentQuizzes();
 const updateState = (() => {
-  // const actions = [];
   return (action) => {
-    const { actionType, data = null, ...rest } = action;
-    api[actionType]({ data });
-    // .then((result) => {
-
-    // }).catch((err) => {
-
-    // });
-    // actions.push(action);
-    return { actions };
+    const { actionType, data = null } = action;
+    return api[actionType]({ data });
   };
 })();
 

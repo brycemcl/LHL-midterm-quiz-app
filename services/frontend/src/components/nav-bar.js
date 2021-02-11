@@ -6,12 +6,22 @@ export default (() => {
         <div class="bg--800 flex justify-between">
           <!-- logo -->
           <app-logo></app-logo>
+          <div id="nav-buttons">
           <!-- nav -->
           <nav-button text="here"></nav-button>
+        </div>
         </div>
         `;
       this.innerHTML = htmlTemplate;
       // this.querySelector('.contents').innerHTML = this.getAttribute('text');
+    }
+    connectedCallback() {
+      import('./../state').then(c => c.default({ actionType: "getNavPages", data: {} })).then((c) => {
+        c.forEach(element => {
+          console.log(element);
+
+        });
+      });
     }
   }
   window.customElements.define('nav-bar', CustomElement);
