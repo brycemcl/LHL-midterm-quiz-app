@@ -62,6 +62,6 @@ const updateState = (() => {
     // });
   };
 })();
-console.log(updateState);
+// console.log(updateState);
 // const states = updateState
 export default updateState;
