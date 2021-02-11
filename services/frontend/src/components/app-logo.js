@@ -4,10 +4,10 @@ export default (() => {
       super();
       const htmlTemplate = `
       <div class="">
-      <span class="logo align-middle">
+      <div class="logo align-middle">
       Q
       </div>
-      </span>
+      </div>
       `;
       this.innerHTML = htmlTemplate;
     }
