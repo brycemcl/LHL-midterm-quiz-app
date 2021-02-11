@@ -25,14 +25,9 @@ events.getNavPages = () => {
     return newItem;
   });
 };
-events.changePage = ({ data }) => {
-  console.log(data.page);
-  // state.page= pages.
-  // if (state.page) {
-  //   return [{ name: "Home", url: "/" }, { name: "My Quizzes", url: "/my-quizzes" }, "Browse Quizzes", "Log Out"];
-  // } else {
-  //   return ["Home", "Browse Quizzes", "Login"];
-  // }
+events.changePage = (args) => {
+  state.page = args.data.page;
+  console.log(state);
 };
 
 // const _ = require('./makerStateFunction');
