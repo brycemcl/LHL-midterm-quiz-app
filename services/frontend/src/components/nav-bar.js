@@ -19,15 +19,15 @@ export default (() => {
     }
     connectedCallback() {
       const navButtons = document.querySelector(".nav-buttons");
-      console.log(navBar);
+      console.log(navButtons);
       import('./../state').then(c => c.default({ actionType: "getNavPages", data: {} })).then((c) => {
         c.forEach(element => {
           console.log(element);
           const button = document.createElement("template");
           button.innerHTML = `<nav-button text="${element}"></nav-button>`;
           console.log(button);
-          // navBar.appendChild(button.content.cloneNode(true));
-          navBar.appendChild(button);
+          // navButtons.appendChild(button.content.cloneNode(true));
+          navButtons.appendChild(button);
         });
       });
     }
