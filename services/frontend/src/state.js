@@ -7,7 +7,7 @@ state.page = "home"; //update based off of url of page
 state.user = 1; //update based off of url of page
 const pages = {
   home: { name: "Home", url: "/" },
-  "My Quizzes": { name: "My Quizzes", url: "/my-quizzes" },
+  "usersQuizzes": { name: "My Quizzes", url: "/my-quizzes" },
   "browse": { name: "Browse Quizzes", url: "/browse" },
   "logout": { name: "Logout", url: "/" },
   "login": { name: "Login", url: "/" }
