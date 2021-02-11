@@ -6,6 +6,10 @@ const updateDom = {};
 const state = {};
 state.page = "home"; //update based off of url of page
 
+api.getState = () => {
+  return state;
+};
+
 // setInterval(() => {
 //   console.clear();
 //   console.log(state);
@@ -40,7 +44,6 @@ updateDom.updateRecentQuizzes = () => {
 const updateState = (() => {
   return (action) => {
     const { actionType, data = null } = action;
-    console.log(actionType);
     return api[actionType]({ data })
       .then((result) => {
         return { state };
