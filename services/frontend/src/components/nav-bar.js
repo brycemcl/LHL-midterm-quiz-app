@@ -25,6 +25,7 @@ export default (() => {
           button.innerHTML = `<nav-button text="${element}"></nav-button>`;
           console.log(button);
           navBar.appendChild(button.content.cloneNode(true));
+          console.log(navBar);
         });
       });
     }
