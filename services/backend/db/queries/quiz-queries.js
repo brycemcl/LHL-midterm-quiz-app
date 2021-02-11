@@ -1,91 +1,91 @@
 const db = require('../../lib/db.js');
 
 // gets all public and current quizzes for homepage
-const getQuizzes = function() {
+const getQuizzes = function () {
   return db.query(`
     SELECT * FROM quizzes
     WHERE is_public = true AND is_current = true;
   `)
-  .then(res => res.rows);
+    .then(res => res.rows);
 };
 
-//gets details for specic quiz given the id, someone is about to take quiz
-const getQuizById = function(id) {
+//gets details for specific quiz given the id, someone is about to take quiz
+const getQuizById = function (id) {
   return db.query(`
     SELECT * FROM quizzes
     WHERE id = $1
   `, [id])
-  .then(res => res.rows);
-}
+    .then(res => res.rows);
+};
 
 //getting all the quizzes a user has created
-const getQuizzesByIdCreated = function(user_id) {
+const getQuizzesByIdCreated = function (user_id) {
   return db.query(`
     SELECT * FROM quizzes
     WHERE user_id = $1;
   `, [user_id])
-  .then(res => res.rows);
+    .then(res => res.rows);
 };
 
-//geting all the quizzes a user has taken
-//paraminput = {id, user_id: integer, title: string, version: interger, is_current: bool}
-const getQuizzesByIdTaken = function(user_id) {
+//getting all the quizzes a user has taken
+//paraminput = {id, user_id: integer, title: string, version: integer, is_current: bool}
+const getQuizzesByIdTaken = function (user_id) {
   return db.query(`
     SELECT answers.quiz_id, quizzes.*
     FROM answers
     JOIN quizzes ON quiz_id = quizzes.id
     WHERE answers.user_id = $1;
   `, [user_id])
-  .then(res => res.rows);
+    .then(res => res.rows);
 };
 
 // author creating a quiz
-const postQuizzes = function(quiz) {
+const postQuizzes = function (quiz) {
   //if the user_id exists then add quiz
   if (quiz.user_id) {
     const newId = Math.floor(Math.random() * 100);
     quiz.id = newId; // add new id into quiz
-    const quiz_details = [quiz.id, quiz.user_id, quiz.title, quiz.version, quiz.is_current]
+    const quiz_details = [quiz.id, quiz.user_id, quiz.title, quiz.version, quiz.is_current];
     return db.query(`
       INSERT INTO quizzes (id, user_id, title, version, is_current)
       VALUES ($1, $2, $3, $4, $5)
       RETURNING *;
     `, quiz_details)
-    .then(res => res.rows[0]);
+      .then(res => res.rows[0]);
   }
 };
 
 //gets specific question given quiz
-const getQuestions = function(quiz_id) {
+const getQuestions = function (quiz_id) {
   return db.query(`
     SELECT id, question, sub_text, question_pic_url
     FROM questions
     WHERE quiz_id = $1;
   `, [quiz_id])
-  .then(res => res.rows);
+    .then(res => res.rows);
 };
 
-const getQuestion = function(question_id) {
+const getQuestion = function (question_id) {
   return db.query(`
     SELECT question
     FROM questions
     WHERE id = $1;
   `, [question_id])
-  .then(res => res.rows);
-}
+    .then(res => res.rows);
+};
 
 //gets specific question given quiz
-const getOptions = function(question_id) {
+const getOptions = function (question_id) {
   return db.query(`
     SELECT pic_answer_url, text_answer
     FROM options
     WHERE question_id IN (SELECT id FROM questions WHERE id = $1)
-  `,[question_id])
-  .then(res => res.rows);
-}
+  `, [question_id])
+    .then(res => res.rows);
+};
 
 // author edit the quiz's title and change the version
-const editQuiz = function(quiz) {
+const editQuiz = function (quiz) {
   const changes = [quiz.title, quiz.id];
   return db.query(`
     UPDATE quizzes
@@ -93,11 +93,11 @@ const editQuiz = function(quiz) {
     WHERE id = $2
     RETURNING *;
   `, changes)
-  .then(res => res.rows);
+    .then(res => res.rows);
 };
 
 // author updating a question of their quiz
-const editQuestion = function(question) {
+const editQuestion = function (question) {
   const keys = ['question', 'sub_text', 'question_pic_url', 'id'];
   const vals = keys.map(key => question[key]); //undefined if not there
   return db.query(`
@@ -113,13 +113,13 @@ const editQuestion = function(question) {
     WHERE id = $4
     RETURNING *;
   `, vals)
-  .then(res => res.rows[0]); //catch in function where routes are
+    .then(res => res.rows[0]); //catch in function where routes are
 };
 
 // author updating the options
 // required field: question_id, id (option)
 // editOptions end point not working
-const editOptions = function(options) {
+const editOptions = function (options) {
   const keys = ['pic_answer_url', 'text_answer', 'is_correct', 'id', 'question_id'];
   const vals = keys.map(key => options[key]); //undefined if not there
   return db.query(`
@@ -135,12 +135,12 @@ const editOptions = function(options) {
     WHERE id = $4
     RETURNING *;
   `, vals)
-  .then(res => res.rows[0]); //catch in function where routes are
+    .then(res => res.rows[0]); //catch in function where routes are
 };
 
 
 //needs the answer thats being changed and new option_id
-const editAnswers = function(changesObject, option_id) {
+const editAnswers = function (changesObject, option_id) {
   const keys = ['id', 'user_id'];
   let vals = keys.map(key => changesObject[key]); //undefined if not there;
   vals.push(option_id);
@@ -151,22 +151,22 @@ const editAnswers = function(changesObject, option_id) {
     SET option_id = $3
     WHERE answer_id IN (SELECT answers.id FROM answers WHERE id = $1 AND user_id = $2);
   `, vals)
-  .then(res => res.rows);
-}
+    .then(res => res.rows);
+};
 
 
 // author: mark the quiz to be hidden and not accessble to both author and quiz takers
-const deleteQuiz = function(quiz_id) {
+const deleteQuiz = function (quiz_id) {
   return db.query(`
     UPDATE quizzes
     SET is_current = false
     WHERE id = $1;
   `, [quiz_id])
-  .then(res => res.rows);
+    .then(res => res.rows);
 };
 
 // deletes all the users answers associated with specifed user and quiz
-const takerDeleteQuiz = function(user_id, quiz_id) {
+const takerDeleteQuiz = function (user_id, quiz_id) {
   return db.query(`
     DELETE FROM answers
     WHERE quiz_id = $1 AND user_id = $2
@@ -176,7 +176,7 @@ const takerDeleteQuiz = function(user_id, quiz_id) {
 
 // limited to one correct option per answer
 // if more than one option, need to group by answers and then select COUNT(answers)
-const getScores = function(user_id, quiz_id) {
+const getScores = function (user_id, quiz_id) {
   return db.query(`
     SELECT COUNT(is_correct) FROM options
       WHERE is_correct = true AND options.id IN (SELECT option_id FROM options_answers WHERE answer_id IN (
@@ -185,7 +185,7 @@ const getScores = function(user_id, quiz_id) {
       )
   `, [user_id, quiz_id])
     .then((res) => res.rows);
-}
+};
 
 module.exports = {
   getQuizzes,

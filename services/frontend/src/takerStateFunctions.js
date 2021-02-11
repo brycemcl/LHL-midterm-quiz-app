@@ -1,4 +1,6 @@
 import state from './state';
+import jQuery from 'jquery';
+const $ = jQuery;
 
 events.getQuizzesTakenByUser = (user_id) => {
   $.getJSON(`'/api/quiz-taker/user/${user_id}`, (response) => {
@@ -21,22 +23,25 @@ events.editAnswer = (answer, option_id) => {
     method: 'POST',
     data: data
   })
-  .then(() => {
-    console.log('Answer updated successfully');
-  });
-}
+    .then(() => {
+      console.log('Answer updated successfully');
+    });
+};
 
-events.getScores = (quiz_id, user_id) => {
-  const data = { quiz_id, user_id };
+
+events.getScores = (user_id, quiz_id) => {
+  const data = { user_id, quiz_id };
   $.ajax({
     url: `/api/quiz-taker/${quiz_id}/score`,
     method: 'POST',
     data: data
   })
-    .then((res) => {
-      state.score = res;
+    .then(response => {
+      state.score = response;
+      return response;
     });
-}
+};
+console.log('score:', events.getScores(1, 6));
 
 
 events.deleteAnswers = (quiz_id, user_id) => {
@@ -45,8 +50,8 @@ events.deleteAnswers = (quiz_id, user_id) => {
     method: 'POST',
     data: user_id
   })
-  .then(() => {
-    console.log('Quiz deleted womp womp wommmmp');
-  });
-}
+    .then(() => {
+      console.log('Quiz deleted womp womp wommmmp');
+    });
+};
 

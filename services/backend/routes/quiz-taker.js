@@ -39,19 +39,19 @@ router.get('/:id', (req, res) => {
 router.get('/questions/:id', (req, res) => {
   const quiz_id = req.params.id;
   getQuestions(quiz_id)
-  .then(questions => res.json(questions));
-})
+    .then(questions => res.json(questions));
+});
 
-router.get('/question/:id',(req, res) => {
+router.get('/question/:id', (req, res) => {
   const question_id = req.params.id;
   getQuestion(question_id)
-  .then(question => res.json(question));
+    .then(question => res.json(question));
 });
 
 router.get('/options/:id', (req, res) => {
   const question_id = req.params.id;
   getOptions(question_id)
-  .then(options => res.json(options));
+    .then(options => res.json(options));
 });
 
 // Editing a specific quiz
@@ -69,8 +69,8 @@ router.post('/:id/answer', (req, res) => {
 
 // for a quiz taker, to display results
 // this will change based on the sql queries
-router.post('/:id/score', (req,res) => {
-  const { quiz_id, user_id } = req.body;
+router.post('/:id/score', (req, res) => {
+  const { user_id, quiz_id } = req.body;
   console.log('user_id and quiz_id are', user_id, quiz_id);
   getScores(user_id, quiz_id)
     .then(score => {
