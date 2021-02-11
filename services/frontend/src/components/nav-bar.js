@@ -18,7 +18,7 @@ export default (() => {
       // this.querySelector('.contents').innerHTML = this.getAttribute('text');
     }
     connectedCallback() {
-      const navButtons = document.querySelector(".nav-buttons");
+      const navButtons = document.querySelector("#nav-buttons");
       console.log(navButtons);
       import('./../state').then(c => c.default({ actionType: "getNavPages", data: {} })).then((c) => {
         c.forEach(element => {
