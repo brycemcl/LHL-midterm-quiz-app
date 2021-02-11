@@ -7,11 +7,11 @@ state.page = "home"; //update based off of url of page
 state.user = 1; //update based off of url of page
 
 const pages = {
-  home: { name: "Home", url: "/" },
-  usersQuizzes: { name: "My Quizzes", url: "/my-quizzes" },
-  browse: { name: "Browse Quizzes", url: "/browse" },
-  logout: { name: "Logout", url: "/" },
-  login: { name: "Login", url: "/" }
+  home: { name: "Home", page: "/" },
+  usersQuizzes: { name: "My Quizzes", page: "/my-quizzes" },
+  browse: { name: "Browse Quizzes", page: "/browse" },
+  logout: { name: "Logout", page: "/" },
+  login: { name: "Login", page: "/" }
 };
 
 events.getNavPages = () => {
@@ -21,11 +21,16 @@ events.getNavPages = () => {
   } else {
     pagesToReturn = ["home", "usersQuizzes", "login"];
   }
-  return pagesToReturn.map((item) => pages[item]);
+  return pagesToReturn.map((item) => [pages[item], item]).map((item) => {
+    const newItem = item[0];
+    newItem.shortName = item[1];
+    return newItem;
+  });
 };
 
-events.changePage = (data) => {
-  // console.log(data);
+events.changePage = ({ data }) => {
+  console.log(data.page);
+  // state.page= pages.
   // if (state.page) {
   //   return [{ name: "Home", url: "/" }, { name: "My Quizzes", url: "/my-quizzes" }, "Browse Quizzes", "Log Out"];
   // } else {
