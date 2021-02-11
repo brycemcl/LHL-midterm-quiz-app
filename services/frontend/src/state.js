@@ -2,7 +2,7 @@ import jQuery from 'jquery';
 const $ = jQuery;
 const qs = Document.querySelector;
 const events = {};
-const state = {};
+export const state = {};
 state.page = "home"; //update based off of url of page
 
 events.getNavPages = () => {
@@ -37,28 +37,28 @@ events.getQuizzesTakenByUser = () => {
   });
 };
 
-events.getQuizById = () => {
-  $.getJSON(`/api/quiz-taker/${id}`, (response) => {
-    state.specificQuiz = response;
-    return response;
-  });
-};
+// events.getQuizById = () => {
+//   $.getJSON(`/api/quiz-taker/${id}`, (response) => {
+//     state.specificQuiz = response;
+//     return response;
+//   });
+// };
 
 
-$.ajax({ url: `/api/quiz-taker/${id}/answer`, method: 'POST', data: /*onclick submitted data*/})
-  .then(() => {
+// $.ajax({ url: `/api/quiz-taker/${id}/answer`, method: 'POST', data: /*onclick submitted data*/})
+//   .then(() => {
 
-  });
+//   });
 
-$.ajax({ url: `/api/quiz-taker/${id}/score`, method: 'POST', data: /*onclick submitted data*/})
-  .then(() => {
+// $.ajax({ url: `/api/quiz-taker/${id}/score`, method: 'POST', data: /*onclick submitted data*/})
+//   .then(() => {
 
-  });
+//   });
 
-$.ajax({ url: `/api/quiz-taker/${id}/delete`, method: 'POST', data: /*onclick submitted data*/})
-  .then(() => {
+// $.ajax({ url: `/api/quiz-taker/${id}/delete`, method: 'POST', data: /*onclick submitted data*/})
+//   .then(() => {
 
-  });
+//   });
 
 // api.getRecentQuizzes();
 const updateState = (() => {

@@ -56,33 +56,32 @@ api.editOption = () => {
     });
 };
 
-api.addQuiz = () => {
-  $.ajax({
-    url: '/api/quiz-maker/',
-    method: 'POST',
-    data: $(this).serialize()
-      .then(() => {
-        console.log('quiz added!');
-      })
-  }
+// api.addQuiz = () => {
+//   $.ajax({
+//     url: '/api/quiz-maker/',
+//     method: 'POST',
+//     data: $(this).serialize()
+//       .then(() => {
+//         console.log('quiz added!');
+//       })
+//   }
 
-api.deleteQuiz = () => {
-      $.ajax({
-        url: `/api/quiz-maker/${id}/delete`,
-        method: 'POST',
-        data: /*onclick submitted data*/})
-        .then(() => {
+// api.deleteQuiz = () => {
+//       $.ajax({
+//         url: `/api/quiz-maker/${id}/delete`,
+//         method: 'POST',
+//         data: /*onclick submitted data*/})
+//         .then(() => {
 
-        });
-    }
+//         });
+//     }
 
-module.exports = {
-      getQuizzesByIdCreated,
-      getQuizById,
-      updateQuizById,
-      editQuiz,
-      editQuestion,
-      editOption,
-      addQuiz,
-      deleteQuiz
-    };
+export getQuizzesByIdCreated,
+  getQuizById,
+  updateQuizById,
+  editQuiz,
+  editQuestion,
+  editOption,
+  addQuiz,
+  deleteQuiz;
+
