@@ -21,7 +21,7 @@ export default (() => {
       import('./../state').then(c => c.default({ actionType: "getNavPages", data: {} })).then((c) => {
         c.forEach(element => {
           console.log(element);
-          const button = document.createElement("div");
+          const button = document.createElement("template");
           button.innerHTML = `<nav-button text="${element}"></nav-button>`;
           console.log(button);
         });
