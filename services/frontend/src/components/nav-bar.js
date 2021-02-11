@@ -8,7 +8,7 @@ export default (() => {
         <div class="bg--800 flex justify-between">
           <!-- logo -->
           <app-logo></app-logo>
-          <div class="nav-buttons">
+          <div class="nav-buttons flex">
         </div>
         </div>
         `;
