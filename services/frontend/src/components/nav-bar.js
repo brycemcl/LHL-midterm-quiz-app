@@ -16,13 +16,13 @@ export default (() => {
       // this.querySelector('.contents').innerHTML = this.getAttribute('text');
     }
     connectedCallback() {
+      const navBar = this;
       import('./../state').then(c => c.default({ actionType: "getNavPages", data: {} })).then((c) => {
         c.forEach(element => {
           console.log(element);
           const button = new document.createElement(nav - button);
           button.outerHTML = `<nav-button text="${element}"></nav-button>`;
-          console.log(this);
-
+          console.log(navBar);
         });
       });
     }
