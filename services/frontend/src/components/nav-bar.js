@@ -26,7 +26,8 @@ export default (() => {
           const button = document.createElement("template");
           button.innerHTML = `<nav-button text="${element}"></nav-button>`;
           console.log(button.content.cloneNode(true));
-          navBar.appendChild(button.content.cloneNode(true));
+          // navBar.appendChild(button.content.cloneNode(true));
+          navBar.appendChild(button);
         });
       });
     }
