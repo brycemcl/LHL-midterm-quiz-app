@@ -23,11 +23,11 @@ events.getNavPages = () => {
 };
 events.changePage = (data) => {
   console.log(data.page);
-  if (state.page) {
-    return [{ name: "Home", url: "/" }, { name: "My Quizzes", url: "/my-quizzes" }, "Browse Quizzes", "Log Out"];
-  } else {
-    return ["Home", "Browse Quizzes", "Login"];
-  }
+  // if (state.page) {
+  //   return [{ name: "Home", url: "/" }, { name: "My Quizzes", url: "/my-quizzes" }, "Browse Quizzes", "Log Out"];
+  // } else {
+  //   return ["Home", "Browse Quizzes", "Login"];
+  // }
 };
 
 // const _ = require('./makerStateFunction');
