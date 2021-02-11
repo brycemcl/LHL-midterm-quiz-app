@@ -21,6 +21,7 @@ export default (() => {
       const navButtons = document.querySelector("#nav-buttons");
       console.log(navButtons);
       import('./../state').then(c => c.default({ actionType: "getNavPages", data: {} })).then((c) => {
+        $(navButtons).empty();
         c.forEach(element => {
           // console.log(element);
           const button = document.createElement("template");
