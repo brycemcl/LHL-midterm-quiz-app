@@ -4,16 +4,11 @@ const qs = Document.querySelector;
 const events = {};
 export const state = {};
 state.page = "home"; //update based off of url of page
+state.user = 1; //update based off of url of page
 
 events.getNavPages = () => {
-  if (state.page === "home") {
+  if (state.user) {
     return ["Home", "All Quizzes"];
-  } else if (state.page === "take") {
-    return [];
-  } else if (state.page === "make") {
-    return [];
-  } else if (state.page === "login") {
-    return [];
   } else {
     return [];
   }
