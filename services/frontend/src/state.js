@@ -13,11 +13,13 @@ const pages = {
   login: { name: "Login", url: "/" }
 };
 events.getNavPages = () => {
+  let pagesToReturn = [];
   if (state.user) {
-    return ["Home", "My Quizzes", "Browse Quizzes", "Log Out"];
+    pagesToReturn = ["home", "usersQuizzes", "browse", "logout"];
   } else {
-    return ["Home", "Browse Quizzes", "Login"];
+    pagesToReturn = ["home", "usersQuizzes", "login"];
   }
+  return pagesToReturn.map((item) => pages.item);
 };
 events.changePage = (data) => {
   console.log(data.page);
