@@ -13,7 +13,7 @@ events.getNavPages = () => {
     return ["Home", "Browse Quizzes", "Login"];
   }
 };
-events.changePage = ({ data }) => {
+events.changePage = (data) => {
   console.log(data.page);
   if (state.page) {
     return ["Home", "My Quizzes", "Browse Quizzes", "Log Out"];
