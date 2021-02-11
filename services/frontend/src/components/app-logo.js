@@ -3,7 +3,7 @@ export default (() => {
     constructor() {
       super();
       const htmlTemplate = `
-      <div class="flex flex-col items-center h-full">
+      <div class="flex flex-col self-center h-full">
       <div class="logo">
       Q
       </div>
