@@ -43,7 +43,7 @@ const updateState = (() => {
     const { actionType, data = null, ...rest } = action;
     return api[actionType]({ data });
     .then((result) => {
-
+      return;
     }).catch((err) => {
 
     });
