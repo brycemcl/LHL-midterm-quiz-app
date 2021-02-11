@@ -57,6 +57,5 @@ const updateState = (() => {
     return api[actionType]({ data });
   };
 })();
-// console.log(updateState);
-// const states = updateState
+
 export default updateState;
