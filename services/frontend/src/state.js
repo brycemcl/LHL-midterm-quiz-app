@@ -20,7 +20,7 @@ events.getNavPages = () => {
     pagesToReturn = ["home", "usersQuizzes", "login"];
   }
   pagesToReturn = pagesToReturn.map((item) => {
-    console.log(pages);
+    console.log(item);
     pages.item;
   });
   console.log(pagesToReturn);
