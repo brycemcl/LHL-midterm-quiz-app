@@ -33,10 +33,9 @@ events.getNavPages = () => {
 };
 
 events.changePage = (args) => {
-  console.log(pages[args.data.page]["page"]);
+  history.pushState(state, "", pages[args.data.page]["page"]);
   updateUrl();
-  // history.pushState(state, "", args.data.page);
-  console.log(state.page);
+  state.page = args.data.page;
 };
 
 // get all the quizzes
