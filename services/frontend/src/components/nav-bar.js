@@ -20,8 +20,8 @@ export default (() => {
       import('./../state').then(c => c.default({ actionType: "getNavPages", data: {} })).then((c) => {
         c.forEach(element => {
           console.log(element);
-          const button = document.createElement();
-          button.outerHTML = `<nav-button text="${element}"></nav-button>`;
+          // const button = document.createElement();
+          // button.outerHTML = `<nav-button text="${element}"></nav-button>`;
           console.log(navBar);
         });
       });
