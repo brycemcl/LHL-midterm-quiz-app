@@ -3,10 +3,8 @@ export default (() => {
     constructor() {
       super();
       const htmlTemplate = `
-      <div class="self-center">
       <span class="logo ">
       Q
-      </div>
       </span>
       `;
       this.innerHTML = htmlTemplate;
