@@ -38,6 +38,7 @@ events.getScores = (quiz_id, user_id) => {
     });
 }
 
+
 events.deleteAnswers = (quiz_id, user_id) => {
   $.ajax({
     url: `/api/quiz-taker/${quiz_id}/delete`,

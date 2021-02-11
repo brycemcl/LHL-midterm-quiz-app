@@ -1,4 +1,5 @@
 import state from './state';
+import updateState from './state';
 
 events.getQuizzesByIdCreated = (user_id) => {
   $.getJSON(`/api/quiz-maker/user/${user_id}`, (response) => {
@@ -68,14 +69,3 @@ events.deleteQuiz = (quiz_id) => {
     console.log('quiz deleted');
   })
 };
-
-// export {
-//   getQuizzesByIdCreated,
-//   getQuizById,
-//   updateQuizById,
-//   editQuiz,
-//   editQuestion,
-//   editOption,
-//   addQuiz,
-//   deleteQuiz
-// };
