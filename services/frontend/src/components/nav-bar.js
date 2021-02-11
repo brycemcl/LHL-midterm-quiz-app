@@ -17,7 +17,6 @@ export default (() => {
     }
     connectedCallback() {
       const navButtons = document.querySelector(".nav-buttons");
-      console.log(navButtons);
       import('./../state').then(c => c.default({ actionType: "getNavPages", data: {} })).then((c) => {
         $(navButtons).empty();
         c.forEach(element => {
