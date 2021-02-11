@@ -13,9 +13,11 @@ api.getNavPages = () => {
     return [];
   } else if (state.page === "make") {
     return [];
-  } else if (state.page === "home") {
+  } else if (state.page === "login") {
     return [];
-  } else 
+  } else {
+    return [];
+  }
 };
 
 // setInterval(() => {
