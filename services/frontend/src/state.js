@@ -21,7 +21,7 @@ events.getNavPages = () => {
   }
   return pagesToReturn.map((item) => pages[item]);
 };
-events.changePage = (data) => {
+events.changePage = ({ data }) => {
   console.log(data);
   // if (state.page) {
   //   return [{ name: "Home", url: "/" }, { name: "My Quizzes", url: "/my-quizzes" }, "Browse Quizzes", "Log Out"];
