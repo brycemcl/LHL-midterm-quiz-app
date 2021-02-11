@@ -76,13 +76,13 @@ api.deleteQuiz = () => {
         });
     }
 
-export {
-    getQuizzesByIdCreated,
-    getQuizById,
-    updateQuizById,
-    editQuiz,
-    editQuestion,
-    editOption,
-    addQuiz,
-    deleteQuiz
-  };
+module.exports = {
+      getQuizzesByIdCreated,
+      getQuizById,
+      updateQuizById,
+      editQuiz,
+      editQuestion,
+      editOption,
+      addQuiz,
+      deleteQuiz
+    };
