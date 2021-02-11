@@ -4,11 +4,12 @@ export default (() => {
       super();
       const element = this;
       const htmlTemplate = `
-          <div class="font-title self-center"></div>
+          <div class="font-title self-center p-4"></div>
         `;
       this.innerHTML = htmlTemplate;
       const pageAttribute = this.getAttribute('page');
       this.addEventListener("click", (event) => {
+        console.log(pageAttribute);
         import('./../state').then(c => c.default({ actionType: "changePage", data: { page: pageAttribute, event } }));
       });
       this.querySelector('div').innerHTML = this.getAttribute('text');

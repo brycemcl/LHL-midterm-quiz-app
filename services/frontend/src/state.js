@@ -2,22 +2,35 @@ import jQuery from 'jquery';
 const $ = jQuery;
 const qs = Document.querySelector;
 const events = {};
-const state = {};
+export const state = {};
 state.page = "home"; //update based off of url of page
+state.user = 1; //update based off of url of page
 
+const pages = {
+  home: { name: "Home", url: "/" },
+  usersQuizzes: { name: "My Quizzes", url: "/my-quizzes" },
+  browse: { name: "Browse Quizzes", url: "/browse" },
+  logout: { name: "Logout", url: "/" },
+  login: { name: "Login", url: "/" }
+};
 
 events.getNavPages = () => {
-  if (state.page === "home") {
-    return ["Home", "All Quizzes"];
-  } else if (state.page === "take") {
-    return [];
-  } else if (state.page === "make") {
-    return [];
-  } else if (state.page === "login") {
-    return [];
+  let pagesToReturn = [];
+  if (state.user) {
+    pagesToReturn = ["home", "usersQuizzes", "browse", "logout"];
   } else {
-    return [];
+    pagesToReturn = ["home", "usersQuizzes", "login"];
   }
+  return pagesToReturn.map((item) => pages[item]);
+};
+
+events.changePage = (data) => {
+  // console.log(data);
+  // if (state.page) {
+  //   return [{ name: "Home", url: "/" }, { name: "My Quizzes", url: "/my-quizzes" }, "Browse Quizzes", "Log Out"];
+  // } else {
+  //   return ["Home", "Browse Quizzes", "Login"];
+  // }
 };
 
 // get all the quizzes
@@ -28,7 +41,6 @@ events.getRecentQuizzes = () => {
   });
 };
 
-// api.getRecentQuizzes();
 const updateState = (() => {
   return (action) => {
     const { actionType, data = null } = action;
