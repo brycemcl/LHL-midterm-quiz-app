@@ -6,7 +6,7 @@ export const state = {};
 state.page = "home"; //update based off of url of page
 state.user = 1; //update based off of url of page
 const pages = {
-  Home: { name: "Home", url: "/" }, "My Quizzes", "Browse Quizzes", "LogOut", "Login"
+  Home: { name: "Home", url: "/" }, "My Quizzes": { name: "Home", url: "/" }, "Browse Quizzes": { name: "Home", url: "/" }, "LogOut": { name: "Home", url: "/" }, "Login": { name: "Home", url: "/" }
 };
 events.getNavPages = () => {
   if (state.user) {
