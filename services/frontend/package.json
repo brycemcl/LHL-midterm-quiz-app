@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "prepare": "snowpack",
+    "prepare": "snowpack prepare",
     "start": "snowpack dev",
     "build": "snowpack build"
   },
