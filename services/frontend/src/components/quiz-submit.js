@@ -12,13 +12,16 @@ export default (() => {
       this.innerHTML = htmlTemplate;
     }
     connectedCallback() {
-      const submit = document.querySelector(".submit");
-      import('./../state').then(c => c.default({ actionType: "getScores", data: {} })).then((c) => {
-        $(submit).empty();
-        //empty quiz title here
-        const button = document.createElement("template");
-
-      });
+      const submit = document.querySelector('.button m-2');
+      const user_id = this.getAttribute('question-id');
+      const quiz_id = this.getAttribute('quiz_id');
+      import('./../state').then(c => c.default({ actionType: "getScore", data: { user_id, quiz_id } }));
+      // .then(o => {Scores", data: { user_id, quiz_id } })).then((c) => {;;;
+      $(submit).empty();
+      //o is score
+      //empty quiz title here
+      // const button = document.createElement("template");
+      // ))
     }
   }
   window.customElements.define('submit-button', CustomElement);

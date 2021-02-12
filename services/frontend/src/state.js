@@ -4,6 +4,7 @@ const qs = Document.querySelector;
 const events = {};
 export const state = {};
 state.user = 1; //update based off of url of page
+import { takerEvents } from './takerStateFunctions';
 
 const pages = {
   home: { name: "Home", page: "/" },
@@ -12,6 +13,7 @@ const pages = {
   logout: { name: "Logout", page: "/" },
   login: { name: "Login", page: "/" }
 };
+// console.log(window.location.pathname.split("/")[1]);
 const updateUrl = () => {
   state.page = Object.keys(pages).filter((item) => {
     return pages[item].page === window.location.pathname.split("/")[1] ? window.location.pathname.split("/")[1] : "/";
@@ -111,7 +113,5 @@ const updateState = (() => {
     return events[actionType]({ data });
   };
 })();
-setInterval(() => {
-  console.info(state);
-}, 5000);
+
 export default updateState;
