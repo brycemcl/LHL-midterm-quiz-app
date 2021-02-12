@@ -1,10 +1,17 @@
 import jQuery from 'jquery';
 const $ = jQuery;
-const qs = Document.querySelector;
-const events = {};
-export const state = {};
+const events = {
+  maker: {},
+  taker: {}
+};
+export const state = {
+  quizzes: {},
+  quizQuestions: {}
+};
+const maker = events.maker;
+const taker = events.taker;
 state.user = 1; //update based off of url of page
-import { takerEvents } from './takerStateFunctions';
+// import { takerEvents } from './takerStateFunctions';
 
 const pages = {
   home: { name: "Home", page: "/" },
@@ -13,11 +20,12 @@ const pages = {
   logout: { name: "Logout", page: "/" },
   login: { name: "Login", page: "/" }
 };
-// console.log(window.location.pathname.split("/")[1]);
+// console.debug(window.location.pathname.split("/")[1]);
 const updateUrl = () => {
   state.page = Object.keys(pages).filter((item) => {
     return pages[item].page === window.location.pathname.split("/")[1] ? window.location.pathname.split("/")[1] : "/";
   })[0];
+  console.debug("updateUrl: ", state);
 };
 updateUrl();
 events.getNavPages = () => {
@@ -27,85 +35,115 @@ events.getNavPages = () => {
   } else {
     pagesToReturn = ["home", "usersQuizzes", "login"];
   }
-  return pagesToReturn.map((item) => [pages[item], item]).map((item) => {
+  pagesToReturn = pagesToReturn.map((item) => [pages[item], item]).map((item) => {
     const newItem = item[0];
     newItem.shortName = item[1];
     return newItem;
   });
+
+  console.debug("events.getNavPages: ", state);
+  return pagesToReturn;
 };
 
 events.changePage = (args) => {
   history.pushState(state, "", pages[args.data.page]["page"]);
   updateUrl();
   state.page = args.data.page;
+  console.debug("events.changePage: ", state);
 };
-
 // get all the quizzes
 events.getRecentQuizzes = () => {
-  $.getJSON('/api/', (response) => {
+  return $.getJSON('/api/', (response) => {
     state.recentQuizzes = response;
+    console.debug("events.getRecentQuizzes: ", state);
     return state.recentQuizzes;
   });
 };
-
 // events.getRecentQuizzes();
 
 // get the quiz by id
-// setting the states of quiz_id, quiz_title, and is_current
-events.getQuiz = (quiz_id) => {
-  $.getJSON(`/api/quiz-maker/${quiz_id}`, (response) => {
-    state.quiz_id = response[0].id;
-    state.quiz_title = response[0].title;
-    state.quiz_current = response[0].is_current;
-    console.log(state);
-    // console.log('response', response[0]);
-    // console.log('response id and quiz title', state.quiz_id, state.quiz_title, state.quiz_current);
-  });
-};
-
-events.getQuiz(5);
-
-events.getQuestionsByQuiz = (quiz_id) => {
-  $.getJSON(`/api/quiz-taker/questions/${quiz_id}`, response => {
-    console.log('questions are', response);
-    // console.log('current state', state);
-    console.log('quiz id', quiz_id, state.quiz_id);
-    if (state.quiz_id) {
-      for (const question of response) {
-        console.log("question is", question);
-        state.question_id = {};
-        state.question_id.question = question.question;
-        state.question_id.question_pic_url = question.question_pic_url;
-        state.question_id.sub_text = question.sub_text;
-      }
-      console.log('res:', state[quiz_id][response.id]);
+// setting the states of quizId, quiz_title, and is_current
+events.getQuiz = (quizId) => {
+  return $.getJSON(`/api/quiz-maker/${quizId}`, (response) => {
+    if (response[0]) {
+      const quiz = response[0];
+      state.quizzes.quizId = quiz.id;
+      state.quizzes[quiz.id] = quiz;
+      state.quizzes[quiz.id]["created_at"] = new Date(quiz.created_at);
+      console.debug("events.getRecentQuizzes: ", state);
+      return state.quizzes[quiz.id];
+    } else {
+      console.debug("events.getQuiz: ", state);
+      console.error("events.getQuiz: failed no quiz returned");
+      return null;
     }
-    // return state[quiz_id][response.id];
   });
 };
-
-// events.getQuestionsByQuiz(5);
-
-// get a quiz question
-events.getQuestion = (question_id) => {
-  $.getJSON(`/api/quiz-taker/question/${question_id}`, response => {
-    state.question = response;
-    if (state[response.quiz_id]) {
-      state[response.quiz_id] = {};
-    }
-    return state[response.quiz_id][question_id];
-  });
-};
-
-// events.getQuestions(7);
+// events.getQuiz(4);
 
 // get all quiz options for a question
-events.getOptions = (question_id) => {
-  $.getJSON(`/api/quiz-taker/options/${question_id}`, response => {
-    state.question_id = response;
-    return state.question_id;
+events.getOptions = (argsObject) => {
+  const { quizId, questionNumber, questionDb, } = argsObject;
+  $.getJSON(`/api/quiz-taker/options/${questionDb}`, options => {
+    if (options) {
+      state.quizQuestions[quizId][questionNumber]["options"] = options;
+      console.debug("events.getOptions: ", state);
+      return state.quizQuestions[quizId][questionNumber]["options"];
+    } else {
+      console.debug("events.getOptions: ", state);
+      console.error("events.getOptions: failed no questions returned");
+    }
   });
 };
+
+events.getQuestionsByQuiz = (quizId) => {
+  $.getJSON(`/api/quiz-taker/questions/${quizId}`, questions => {
+    if (questions) {
+      state.quizQuestions[quizId] = [];
+      questions.forEach((questionDb, questionNumber) => {
+        state.quizQuestions[quizId].push(questionDb);
+        events.getOptions({ questionDb: questionDb.id, quizId, questionNumber });
+      });
+      console.debug("events.getQuestionsByQuiz: ", state);
+      return state.quizQuestions[quizId];
+      //empty response
+    } else {
+      console.debug("events.getQuestionsByQuiz: ", state);
+      console.error("events.getQuestionsByQuiz: failed no questions returned");
+      return null;
+    }
+  });
+};
+// //single question back
+// events.getQuestionsByQuiz(4);
+// //multiple questions back
+events.getQuestionsByQuiz(6);
+
+/*
+/////////////NOT SURE WHAT THE POINT OF THIS IS///////////////////
+// get a quiz question
+events.getQuestion = (questionId) => {
+  $.getJSON(`/api/quiz-taker/question/${questionId}`, response => {
+    state.question = response;
+    if (state[response.quizId]) {
+      state[response.quizId] = {};
+    }
+    return state[response.quizId][questionId];
+  });
+};
+// events.getQuestions(7);
+*/
+
+maker.getQuizzesByUserIdCreated = (user_id) => {
+  $.getJSON(`/api/quiz-maker/user/${user_id}`, (quizzes) => {
+    quizzes.forEach(quiz => {
+      console.log(quiz);
+    });
+    // state.quizzesCreated = response;
+    // return response;
+  });
+};
+maker.getQuizzesByIdCreated(2);
 
 const updateState = (() => {
   return (action) => {
