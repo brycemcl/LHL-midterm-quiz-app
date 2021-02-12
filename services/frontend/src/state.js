@@ -44,6 +44,7 @@ events.changePage = (args) => {
 // get all the quizzes
 events.getRecentQuizzes = () => {
   $.getJSON('/api/', (response) => {
+    console.log('recent quizzes', response);
     state.recentQuizzes = response;
     return state.recentQuizzes;
   });
@@ -54,13 +55,13 @@ events.getRecentQuizzes = () => {
 // get the quiz by id
 // setting the states of quiz_id, quiz_title, and is_current
 events.getQuiz = (quiz_id) => {
-  $.getJSON(`/api/quiz-maker/${quiz_id}`, (response) => {
+  $.getJSON(`http://localhost:8081/api/quiz-maker/${quiz_id}`, (response) => {
     state.quiz = {};
     state.quiz_id = response[0].id;
     state.quiz_title = response[0].title;
     state.quiz_current = response[0].is_current;
     console.log(state);
-    // console.log('response', response[0]);
+    console.log('response', response[0]);
     // console.log('response id and quiz title', state.quiz_id, state.quiz_title, state.quiz_current);
   });
 };
