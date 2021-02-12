@@ -178,11 +178,15 @@ const takerDeleteQuiz = function (user_id, quiz_id) {
 // if more than one option, need to group by answers and then select COUNT(answers)
 const getScores = function (user_id, quiz_id) {
   return db.query(`
-    SELECT COUNT(is_correct) FROM options
-      WHERE is_correct = true AND options.id IN (SELECT option_id FROM options_answers WHERE answer_id IN (
-        SELECT id FROM answers WHERE user_id = $1 AND quiz_id = $2
-        )
-      )
+  WITH cte1 AS (SELECT COUNT(is_correct) as questions_correct FROM options
+  WHERE is_correct = true AND options.id IN (SELECT option_id FROM options_answers WHERE answer_id IN (
+    SELECT id FROM answers WHERE user_id = $1 AND quiz_id = $2
+    )
+    )
+  ) , cte2 AS (SELECT COUNT(*) as out_of FROM questions WHERE quiz_id = $2)
+  SELECT (cte1.questions_correct * 100) / cte2.out_of as percentage FROM
+  cte1, cte2;
+
   `, [user_id, quiz_id])
     .then((res) => res.rows);
 };
@@ -204,3 +208,4 @@ module.exports = {
   getOptions,
   getQuestions
 };
+

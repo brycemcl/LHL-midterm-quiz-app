@@ -4,7 +4,7 @@ const { getQuizzesByIdTaken, getQuizById, editAnswers, takerDeleteQuiz, getScore
 const bodyParser = require('body-parser');
 
 // use and set middleware
-router.use(bodyParser.json());
+router.use(bodyParser.json());;
 router.use(bodyParser.urlencoded({ extended: true }));
 
 // All the quizzes that the taker has taken

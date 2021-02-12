@@ -4,6 +4,7 @@ const qs = Document.querySelector;
 const events = {};
 export const state = {};
 state.user = 1; //update based off of url of page
+import { takerEvents } from './takerStateFunctions';
 
 const pages = {
   home: { name: "Home", page: "/" },
@@ -12,7 +13,6 @@ const pages = {
   logout: { name: "Logout", page: "/" },
   login: { name: "Login", page: "/" }
 };
-
 const updateUrl = () => {
   state.page = Object.keys(pages).filter((item) => {
     return pages[item].page === window.location.pathname.split("/")[1] ? window.location.pathname.split("/")[1] : "/";
@@ -35,10 +35,9 @@ events.getNavPages = () => {
 };
 
 events.changePage = (args) => {
-  console.log(pages[args.data.page]["page"]);
+  history.pushState(state, "", pages[args.data.page]["page"]);
   updateUrl();
-  // history.pushState(state, "", args.data.page);
-  console.log(state.page);
+  state.page = args.data.page;
 };
 
 // get all the quizzes

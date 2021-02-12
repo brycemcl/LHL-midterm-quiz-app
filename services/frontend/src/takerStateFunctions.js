@@ -1,6 +1,10 @@
-import state from './state';
+// import state from './state';
 import jQuery from 'jquery';
 const $ = jQuery;
+const qs = Document.querySelector;
+const events = {};
+// state.user = 1; //update based off of url of page
+
 
 events.getQuizzesTakenByUser = (user_id) => {
   $.getJSON(`'/api/quiz-taker/user/${user_id}`, (response) => {
@@ -37,12 +41,11 @@ events.getScores = (user_id, quiz_id) => {
     data: data
   })
     .then(response => {
-      state.score = response;
-      return response;
+      console.log('score response:', response[0].percentage); // state.score = response;
+      return response[0].percentage;
     });
 };
-console.log('score:', events.getScores(1, 6));
-
+console.log(events.getScores(1, 6));
 
 events.deleteAnswers = (quiz_id, user_id) => {
   $.ajax({
@@ -54,4 +57,3 @@ events.deleteAnswers = (quiz_id, user_id) => {
       console.log('Quiz deleted womp womp wommmmp');
     });
 };
-
