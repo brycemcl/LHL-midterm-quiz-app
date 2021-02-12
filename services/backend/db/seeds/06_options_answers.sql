@@ -3,7 +3,7 @@ INSERT INTO options_answers (id, answer_id, option_id) VALUES (21, 16, 12);
 INSERT INTO options_answers (id, answer_id, option_id) VALUES (22, 17, 13);
 INSERT INTO options_answers (id, answer_id, option_id) VALUES (23, 18, 14);
 
-INSERT INTO options_answers (id, answer_id, option_id) VALUES (24, 19, 16,);
+INSERT INTO options_answers (id, answer_id, option_id) VALUES (24, 19, 16);
 
 INSERT INTO options_answers (id, answer_id, option_id) VALUES (25, 20, 10);
 

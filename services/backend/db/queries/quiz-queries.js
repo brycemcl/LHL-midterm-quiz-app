@@ -55,7 +55,38 @@ const postQuizzes = function (quiz) {
   }
 };
 
-//gets specific question given quiz
+const addQuestions = function (questions) {
+  const question_keys = ['id', 'quiz_id', 'question', 'sub_text', 'question_pic_url'];
+  const vals = question_keys.map(key => questions[key]); //undefined if not there
+  return db.query(
+    `
+    INSERT INTO questions (id, quiz_id, question, sub_text, question_pic_url) 
+    VALUES (
+      coalesce($1, null),
+      coalesce($2, null),
+      coalesce($3, null),
+      coalesce($4, null),
+      coalesce($5, null)
+      )
+    `, vals)
+    .then(res => res.rows[0]);
+};
+
+const addOptions = function (options) {
+  const option_keys = ['id', 'question_id', 'pic_answer_url', 'text_answer', 'is_correct'];
+  const vals = option_keys.map(key => options[key]); //undefined if not there
+  return db.query(`
+    INSERT INTO options (id, question_id, pic_answer_url, text_answer, is_correct)
+    VALUES (
+      coalesce($1, null),
+      coalesce($2, null),
+      coalesce($3, null),
+      coalesce($4, null),
+      coalesce($5, null)
+    )
+  `, vals)
+    .then(res => res.rows[0]);
+};
 const getQuestions = function (quiz_id) {
   return db.query(`
     SELECT id, question, sub_text, question_pic_url
@@ -197,6 +228,8 @@ module.exports = {
   getQuizzesByIdCreated,
   getQuizzesByIdTaken,
   postQuizzes,
+  addQuestions,
+  addOptions,
   editQuiz,
   editQuestion,
   editOptions,
