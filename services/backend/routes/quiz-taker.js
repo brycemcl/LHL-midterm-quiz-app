@@ -60,8 +60,8 @@ router.get('/options/:id', (req, res) => {
 // option: an option to change
 // this will change based on the sql queries
 router.post('/:id/answer', (req, res) => {
-  const { answer, option } = req.body;
-  editAnswers(answer, option)
+  const { answer, option_id } = req.body;
+  editAnswers(answer, option_id)
     .then(quiz => {
       res.send('answer updated!');
     });
@@ -80,8 +80,8 @@ router.post('/:id/score', (req, res) => {
 
 // Deleting answers from a quiz that the taker has done
 router.post('/:id/delete', (req, res) => {
-  const quiz_id = req.params.id;
-  const user_id = req.body;
+  const { user_id, quiz_id } = req.body;
+  console.log(user_id, quiz_id);
   takerDeleteQuiz(user_id, quiz_id)
     .then(quizzes => {
       console.log(quizzes);
