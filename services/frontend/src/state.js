@@ -65,27 +65,22 @@ events.getQuiz = (quiz_id) => {
   });
 };
 
-// events.getQuiz(5);
+events.getQuiz(5);
 
 events.getQuestionsByQuiz = (quiz_id) => {
   $.getJSON(`/api/quiz-taker/questions/${quiz_id}`, response => {
     console.log('questions are', response);
-    // console.log('current state', state);
-    console.log('quiz id', quiz_id, state.quiz_id);
     if (state.quiz_id) {
       for (const question of response) {
-        console.log("question is", question);
-        // state.question_id.quiz_id = quiz_id;
         state.question_id.question = question.question;
         state.question_id.question_pic_url = question.question_pic_url;
         state.question_id.sub_text = question.sub_text;
       }
     }
-    // return state[quiz_id][response.id];
   });
 };
 
-// events.getQuestionsByQuiz(5);
+events.getQuestionsByQuiz(5);
 
 // get a quiz question
 events.getQuestion = (question_id) => {

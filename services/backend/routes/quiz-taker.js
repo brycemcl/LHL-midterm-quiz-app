@@ -50,6 +50,7 @@ router.get('/question/:id', (req, res) => {
 
 router.get('/options/:id', (req, res) => {
   const question_id = req.params.id;
+  console.log('backend question id', question_id);
   getOptions(question_id)
     .then(options => res.json(options));
 });

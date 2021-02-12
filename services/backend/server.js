@@ -4,7 +4,7 @@ try {
 } catch (e) { }
 
 // Web server config
-const PORT = process.env.NODE_PORT || 8080;
+const PORT = process.env.NODE_PORT || 8081;
 const ENV = process.env.NODE_ENV || "development";
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -48,6 +48,6 @@ app.get("/api/", (req, res) => {
     });
 });
 
-app.listen(8080, () => {
+app.listen(PORT, () => {
   console.log(`Backend listening on port ${PORT}`);
 });
