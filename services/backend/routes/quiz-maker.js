@@ -89,6 +89,7 @@ router.post('/', (req, res) => {
   //   .then(() => res.send('quiz added!'));
 });
 
+
 const quiz = {
   user_id: 2,
   title: "Let us create a quiz from the frontend",
@@ -131,19 +132,33 @@ const quiz = {
     }
   ]
 };
+
+// post quizzes => returns a quiz_id => returns a question_id => returns an option_id
 postQuizzes(quiz)
-  .then(() => {
+  .then((quizObj) => {
     for (const question of quiz.questions) {
-      addQuestions(question);
+      question.quiz_id = quizObj.id;
+      addQuestions(question)
+      .then((questionObj) => {
+        for (const option of question.options) {
+          option.question_id = questionObj.id;
+          addOptions(option)
+          .then(optionObj => console.log('option is', optionObj));
+        }
+      })
     }
   })
-  .then(() => {
-    for (const question of quiz.questions) {
-      for (const option of question.options) {
-        addOptions(option);
-      }
-    }
-  });
+
+  // .then((questionObj) => {
+  //   console.log('obj', questionObj);
+  //   // for (const question of quiz.questions) {
+  //   //   for (const option of question.options) {
+  //   //     option.question_id = questionObj.id;
+  //   //     addOptions(option);
+  //   //   }
+  //   // }
+  // })
+  // .then(res => console.log(res));
 
 // Deleting a quiz that the author made, sets is_current to false so it can be rendered as hidden
 // params: quiz_id

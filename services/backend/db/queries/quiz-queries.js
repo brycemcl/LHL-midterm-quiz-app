@@ -51,42 +51,40 @@ const postQuizzes = function (quiz) {
       VALUES ($1, $2, $3, $4, $5)
       RETURNING *;
     `, quiz_details)
-      .then(res => res.rows[0]);
+    .then(res => {
+      return res.rows[0];
+    });
   }
 };
 
 const addQuestions = function (questions) {
-  const question_keys = ['id', 'quiz_id', 'question', 'sub_text', 'question_pic_url'];
+  const question_keys = ['quiz_id', 'question', 'sub_text', 'question_pic_url'];
   const vals = question_keys.map(key => questions[key]); //undefined if not there
   return db.query(
     `
-    INSERT INTO questions (id, quiz_id, question, sub_text, question_pic_url) 
-    VALUES (
-      coalesce($1, null),
-      coalesce($2, null),
-      coalesce($3, null),
-      coalesce($4, null),
-      coalesce($5, null)
-      )
-    `, vals)
-    .then(res => res.rows[0]);
+    INSERT INTO questions (quiz_id, question, sub_text, question_pic_url)
+    VALUES ($1, $2, coalesce($3, null), coalesce($4, null))
+    RETURNING *;
+  `, vals)
+  .then(res => {
+    return res.rows[0];
+  });
 };
 
 const addOptions = function (options) {
-  const option_keys = ['id', 'question_id', 'pic_answer_url', 'text_answer', 'is_correct'];
+  const option_keys = ['question_id', 'pic_answer_url', 'text_answer', 'is_correct'];
   const vals = option_keys.map(key => options[key]); //undefined if not there
+  console.log('option vals', vals);
   return db.query(`
-    INSERT INTO options (id, question_id, pic_answer_url, text_answer, is_correct)
-    VALUES (
-      coalesce($1, null),
-      coalesce($2, null),
-      coalesce($3, null),
-      coalesce($4, null),
-      coalesce($5, null)
-    )
+    INSERT INTO options (question_id, pic_answer_url, text_answer, is_correct)
+    VALUES ($1, coalesce($2, null), coalesce($3, null), $4)
+    RETURNING *;
   `, vals)
-    .then(res => res.rows[0]);
+  .then(res => {
+    return res.rows[0];
+  });
 };
+
 const getQuestions = function (quiz_id) {
   return db.query(`
     SELECT id, question, sub_text, question_pic_url
