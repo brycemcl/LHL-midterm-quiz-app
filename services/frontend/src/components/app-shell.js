@@ -7,22 +7,18 @@ export default (() => {
       <div class="container md:mx-6 my-6">
 <nav-bar>
 </nav-bar>
-    <div class="inside-of-shell"></div>
+    <div class="inside-of-shell">
+    <inside-of-shell>
+    </inside-of-shell>
+    </div>
     </div>
     </div>
         `;
       this.innerHTML = htmlTemplate;
     }
-    connectedCallback() {
-      const elementsInsideOfShell = ["app-logo", "app-shell", "nav-bar", "nav-button", "question-title", "quiz-question", "quiz-submit"]
-        .filter(element => element !== "app-shell" && element !== "nav-bar" && element !== "nav-button" && element !== "app-logo");
-      const insideOfShell = this.querySelector('.inside-of-shell');
-      elementsInsideOfShell.forEach(element => {
-        const elementToAppend = document.createElement(element);
-        // elementToAppend.classList.add("hidden");
-        insideOfShell.appendChild(elementToAppend);
-      });
-    }
+    // connectedCallback() {
+    // createInsideOfShell(this.querySelector('.inside-of-shell'));
+    // }
   }
   window.customElements.define('app-shell', CustomElement);
 });

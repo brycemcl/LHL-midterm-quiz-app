@@ -8,7 +8,8 @@ export let state = {
   quizzes: {},
   quizQuestions: {},
   QuizzesAuthoredByUserId: {},
-  QuizzesTakenByUserId: {}
+  QuizzesTakenByUserId: {},
+  // containers: {}
 };
 const clearState = () => {
   state = {
@@ -35,9 +36,9 @@ const updateUrl = () => {
   })[0];
   console.debug("updateUrl: ", state);
 };
-// if (typeof pages[item].page === 'undefined') {
-updateUrl();
-// }
+if (!state.page) {
+  updateUrl();
+}
 events.getNavPages = () => {
   let pagesToReturn = [];
   if (state.user) {
@@ -230,7 +231,7 @@ maker.addQuiz = (quiz) => {
       clearState();
     });
 };
-
+/*
 maker.addQuiz({
   user_id: 2,
   title: "Let us create a quiz from the frontend",
@@ -273,7 +274,7 @@ maker.addQuiz({
     }
   ]
 });
-
+*/
 maker.deleteQuiz = (quiz_id) => {
   $.ajax({
     url: `/api/quiz-maker/${quiz_id}/delete`,
@@ -314,6 +315,11 @@ taker.editAnswer = (answer, option_id) => {
       console.log('Answer updated successfully');
     });
 };
+
+taker.editAnswer({
+  answer: 1,
+  option_id: 2
+});
 */
 /*
 taker.editAnswer = (data) => {
@@ -327,10 +333,6 @@ taker.editAnswer = (data) => {
       console.log('Answer updated successfully');
     });
 };
-taker.editAnswer({
-  answer: 1,
-  option_id: 2
-});
 */
 /*
 maker.editOption = (option) => {
@@ -370,14 +372,21 @@ maker.editOption = (option) => {
 
 
 
+// events.quizListContainerLoaded = (data) => {
+//   const { quizListContainer, quizListElement } = data;
+//   state.containers.quizListContainer = quizListContainer;
+//   state.containers.quizListElement = quizListElement;
+//   console.log($(state.containers.quizListContainer).remove());
 
+
+// };
 
 
 
 const updateState = (() => {
   return (action) => {
     const { actionType, data = null } = action;
-    return events[actionType]({ data });
+    return events[actionType](data);
   };
 })();
 
